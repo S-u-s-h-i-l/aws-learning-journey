@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mastering AWS EC2: Elastic IPs, Resizing & EBS | AWS Learning Journey</title>
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="brand">AWS Journey</a>
+      <nav class="nav-links">
+        <a href="../index.html">← All Topics</a>
+        <a href="#section1">Elastic IPs</a>
+        <a href="#section2">Vertical Scaling</a>
+        <a href="#section3">EBS Architecture</a>
+        <a href="#section4">Mounting EBS</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container">
+    <article class="post">
+      
+      <!-- Article Header -->
+      <header class="post-header">
+        <div class="breadcrumb">
+          <a href="../index.html">Home</a> / <a href="../index.html#topics">Topics</a> / <span>Topic 02</span>
+        </div>
+        <div class="tag-list">
+          <span class="tag">AWS</span>
+          <span class="tag">EC2</span>
+          <span class="tag">Elastic IP</span>
+          <span class="tag">EBS</span>
+          <span class="tag">Linux</span>
+        </div>
+        <h1 class="post-title">Mastering AWS EC2</h1>
+        <p class="post-subtitle">Managing Elastic IPs, Resizing Instances & EBS Block Storage</p>
+        
+        <div class="author-meta">
+          <div class="author-info">
+            <span class="author-name">Sushil Yadav</span>
+            <span class="meta-details">4 min read · Published on AWS Learning Journey</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Intro Section -->
+      <section class="intro-section">
+        <h3 style="margin-top:0;">A Hands-On Guide to Static IPs, Vertical Scaling, and Amazon EBS Architecture</h3>
+        <p class="lead">
+          Once your EC2 instances are up and running, operational efficiency depends on three core pillars: network consistency, performance scalability, and durable data persistence.
+        </p>
+        <p>
+          This guide covers how to allocate permanent static IP addresses, vertically scale compute resources on demand, and design, attach, and mount EBS block storage volumes across both Linux and Windows environments.
+        </p>
+      </section>
+
+      <hr class="divider">
+
+      <!-- Section 1 -->
+      <section id="section1" class="guide-part">
+        <h2>1. Managing Elastic IPs (Static Public IPv4)</h2>
+        <p>
+          By default, an EC2 instance’s public IPv4 address is ephemeral — AWS releases it back to the pool whenever the instance stops, assigning a new one upon startup. For web servers, DNS configurations, or API endpoints requiring a static entry point, use an <strong>Elastic IP (EIP)</strong>.
+        </p>
+
+        <h3>Step-by-Step Configuration:</h3>
+        <ol class="steps-list">
+          <li>
+            <strong>Allocate an Elastic IP:</strong>
+            <ul>
+              <li>Open the <strong>EC2 Dashboard</strong> and navigate to <strong>Network & Security &gt; Elastic IPs</strong> in the left sidebar.</li>
+              <li>Click <strong>Allocate Elastic IP address</strong>. Leave default network border group settings intact and click <strong>Allocate</strong>.</li>
+            </ul>
+          </li>
+          <li>
+            <strong>Associate with Your Instance:</strong>
+            <ul>
+              <li>Select your new Elastic IP, click the <strong>Actions</strong> dropdown, and choose <strong>Associate Elastic IP address</strong>.</li>
+              <li>Under <strong>Resource type</strong>, select <strong>Instance</strong>. Pick your running target instance, select its private IP, and click <strong>Associate</strong>.</li>
+            </ul>
+          </li>
+          <li>
+            <strong>Disassociate and Release (Cost Optimization):</strong>
+            <ul>
+              <li>Navigate to <strong>Actions &gt; Disassociate Elastic IP address</strong>.</li>
+              <li>Immediately select <strong>Actions &gt; Release Elastic IP addresses</strong> to delete it from your pool.</li>
+            </ul>
+          </li>
+        </ol>
+
+        <div class="callout callout-warning">
+          <strong>Important Billing Note:</strong> AWS charges for allocated Elastic IPs that are <strong>not actively associated</strong> with running instances. Always release unused Elastic IPs to avoid idle hourly fees.
+        </div>
+      </section>
+
+      <!-- Section 2 -->
+      <section id="section2" class="guide-part">
+        <h2>2. Resizing an EC2 Instance (Vertical Scaling)</h2>
+        <p>
+          Workload requirements fluctuate. If your application needs more vCPUs, higher memory bandwidth, or better network throughput, you can change the instance type (e.g., scaling from a <code>t3.micro</code> to a <code>t3.small</code> or compute-optimized family).
+        </p>
+
+        <h3>Step-by-Step Procedure:</h3>
+        <ol class="steps-list">
+          <li>
+            <strong>Stop the Instance:</strong> Modifying instance hardware attributes requires a stopped state. Navigate to <strong>Instances</strong>, select your machine, click <strong>Instance state</strong>, and choose <strong>Stop instance</strong>. Wait until the status displays <em>Stopped</em>.
+          </li>
+          <li>
+            <strong>Modify the Instance Type:</strong> With the stopped instance selected, click the <strong>Actions</strong> dropdown and navigate to <strong>Instance settings &gt; Change instance type</strong>.
+          </li>
+          <li>
+            <strong>Apply the New Configuration:</strong> Choose your target instance type from the dropdown and click <strong>Apply</strong>.
+          </li>
+          <li>
+            <strong>Restart:</strong> Select the instance, click <strong>Instance state &gt; Start instance</strong>, and verify operational connectivity.
+          </li>
+        </ol>
+      </section>
+
+      <!-- Section 3 -->
+      <section id="section3" class="guide-part">
+        <h2>3. Storage Architecture: Understanding Amazon EBS</h2>
+        <p>
+          Amazon <strong>Elastic Block Store (EBS)</strong> provides persistent, high-performance block-level storage designed specifically for EC2. Unlike instance store volumes (which are ephemeral and wiped on stop), EBS volumes persist independently of instance life cycles.
+        </p>
+
+        <h3>Key Architectural Concepts:</h3>
+        <ul>
+          <li><strong>Block Storage Paradigm:</strong> EBS functions like raw, unformatted physical storage drives connected over a high-speed, dedicated network fabric.</li>
+          <li><strong>Root vs. Additional Volumes:</strong>
+            <ul>
+              <li><strong>Root Volume:</strong> Hosts the guest OS, bootloader, and core system files (typically deleted upon instance termination unless configured otherwise).</li>
+              <li><strong>Secondary Volumes:</strong> Created and attached for user databases, application files, and logs that must persist across instance lifecycle rebuilds.</li>
+            </ul>
+          </li>
+          <li><strong>The Availability Zone (AZ) Rule:</strong> An EBS volume can only be attached to an EC2 instance located within the <strong>exact same Availability Zone</strong>. Native cross-AZ attachment is not supported.</li>
+          <li><strong>EBS Snapshots:</strong> Point-in-time backups stored reliably in Amazon S3. Snapshots are <strong>incremental</strong>, meaning only blocks that changed since the last snapshot are stored, optimizing backup windows and storage costs.</li>
+        </ul>
+      </section>
+
+      <!-- Section 4 -->
+      <section id="section4" class="guide-part">
+        <h2>4. Provisioning, Backing Up, and Mounting EBS Volumes</h2>
+
+        <h3>Step 1: Provision and Attach the Volume</h3>
+        <ol class="steps-list">
+          <li>In the EC2 console under <strong>Elastic Block Store</strong>, navigate to <strong>Volumes &gt; Create volume</strong>.</li>
+          <li>Select the volume type (e.g., General Purpose SSD <code>gp3</code>), define the size in GiB, and ensure the <strong>Availability Zone matches your running EC2 instance</strong>. Click <strong>Create volume</strong>.</li>
+          <li>Once the status transitions to <em>Available</em>, select the volume, click <strong>Actions &gt; Attach volume</strong>, select your target instance, and note the device mount path (e.g., <code>/dev/xvdf</code> or <code>/dev/sdf</code>).</li>
+        </ol>
+
+        <h3>Step 2: Create a Point-in-Time Backup</h3>
+        <p>
+          To capture a clean baseline backup before writing data, select the volume, click <strong>Actions &gt; Create snapshot</strong>, enter a descriptive label, and select <strong>Create snapshot</strong>.
+        </p>
+
+        <h3>Step 3: Format and Mount Within the Operating System</h3>
+        <p>
+          Attaching a block volume is the hardware equivalent of plugging in an unformatted drive; you must initialize the partition and mount the filesystem before use.
+        </p>
+
+        <h4>For Linux Environments (SSH):</h4>
+        <pre><code># 1. Inspect block devices to locate the new disk (e.g., xvdf or nvme1n1)
+lsblk
+
+# 2. Check if the disk already has an existing filesystem
+sudo file -s /dev/xvdf
+
+# 3. Create an XFS file system on the device
+sudo mkfs -t xfs /dev/xvdf
+
+# 4. Create the target mount directory
+sudo mkdir -p /mnt/data
+
+# 5. Mount the device to the directory
+sudo mount /dev/xvdf /mnt/data
+
+# 6. Verify mount status and storage capacity
+df -h</code></pre>
+
+        <div class="callout callout-info">
+          <strong>Production Tip:</strong> Add the device UUID (found via <code>sudo blkid</code>) to <code>/etc/fstab</code> to automatically persist mounts across system reboots.
+        </div>
+
+        <h4>For Windows Environments (RDP):</h4>
+        <ol class="steps-list">
+          <li>Connect via RDP and open <strong>Disk Management</strong> (Press <kbd>Win + R</kbd>, type <code>diskmgmt.msc</code>, and hit Enter).</li>
+          <li>Find the newly attached drive displaying an <strong>Offline</strong> status. Right-click and select <strong>Online</strong>.</li>
+          <li>Right-click the drive, select <strong>Initialize Disk</strong>, and choose the <strong>GPT</strong> partition style.</li>
+          <li>Right-click the unallocated capacity, select <strong>New Simple Volume</strong>, assign a drive letter (e.g., <code>D:</code>), and complete the NTFS format wizard.</li>
+        </ol>
+      </section>
+
+      <!-- Summary -->
+      <section class="guide-part">
+        <h2>Wrapping Up</h2>
+        <ul>
+          <li><strong>Elastic IPs</strong> decouple public networking from instance lifecycle states.</li>
+          <li><strong>Vertical Scaling</strong> enables dynamic right-sizing without data loss or reconfiguration.</li>
+          <li><strong>Amazon EBS &amp; Snapshots</strong> separate compute from stateful storage, forming the foundation for resilient disaster recovery strategies.</li>
+        </ul>
+        <div class="callout callout-warning">
+          <strong>Clean-Up Checklist:</strong> When finishing lab exercises, unmount and delete test EBS volumes and release unassociated Elastic IPs to eliminate recurring background charges.
+        </div>
+      </section>
+
+      <!-- Topic Pagination -->
+      <nav class="topic-pagination">
+        <a href="mastering-aws-cloud-computing.html" class="btn btn-secondary">← Previous: Topic 01</a>
+        <a href="../index.html#topics" class="btn btn-primary">Browse All Topics →</a>
+      </nav>
+
+    </article>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-content">
+      <p>© 2026 Sushil Yadav · AWS Learning Journey</p>
+    </div>
+  </footer>
+
+</body>
+</html>
