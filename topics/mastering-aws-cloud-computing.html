@@ -121,11 +121,13 @@
               <li><strong>AMI (Amazon Machine Image):</strong> Select <em>Amazon Linux 2</em> (or <em>Ubuntu</em>) for Linux, or <em>Windows Server</em> for Windows.</li>
               <li><strong>Instance Type:</strong> Choose <code>t3.micro</code> (Free Tier eligible).</li>
               <li><strong>Key Pair:</strong> Generate a new key pair named <code>my-key</code> with <strong>RSA</strong> encryption and <code>.pem</code> format. Store this file securely.</li>
+              <div><img src="../images/Key Pair.webp" alt="Key Pair"></div>
               <li><strong>Network Settings:</strong> Allow <strong>SSH (Port 22)</strong> for Linux or <strong>RDP (Port 3389)</strong> for Windows, alongside <strong>HTTP (Port 80)</strong> for web traffic.</li>
               <li><strong>Storage:</strong> Keep default 8 GB for Linux, or set to 30 GB for Windows Server.</li>
             </ul>
           </li>
           <li>Click <strong>Launch Instance</strong>.</li>
+          <div><img src="../images/Launch Instance.webp" alt="Launch Instance"></div>
         </ol>
 
         <div class="callout callout-info">
@@ -145,6 +147,7 @@ ssh -i my-key.pem ec2-user@YOUR_PUBLIC_IP</code></pre>
 
         <h4>B. Connecting to Windows</h4>
         <p>In the EC2 console, select your Windows instance, click <strong>Connect</strong>, open the <strong>RDP client</strong> tab, and click <strong>Get Password</strong> using your <code>.pem</code> file. Connect using Remote Desktop Connection with the decrypted Administrator password.</p>
+        <div><img src="../images/Windows EC2 Instance.webp" alt="Windows EC2 Instance"></div>
 
         <h3>Step 3: Installing and Testing a Web Server</h3>
 
@@ -175,6 +178,7 @@ sudo systemctl enable --now apache2</code></pre>
           <li>Navigate to the <strong>Server Roles</strong> stage and check <strong>Web Server (IIS)</strong>.</li>
           <li>Accept standard role dependencies and complete the installation wizard.</li>
         </ol>
+        <div><img src="../images/Web Server (IIS).webp" alt="Web Server (IIS)"></div>
 
         <h3>Step 4: Test Your Web Server</h3>
         <p>Open a browser and enter your public IPv4 address:</p>
@@ -182,6 +186,7 @@ sudo systemctl enable --now apache2</code></pre>
         <p>
           You will see the default <strong>Apache Test Page</strong> on Linux, or the <strong>Internet Information Services (IIS)</strong> welcome page on Windows.
         </p>
+        <div><img src="../images/Internet Information.webp" alt="Internet Information"></div>
       </section>
 
       <!-- Topic Navigation Footer -->
