@@ -1,165 +1,300 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mastering AWS Cloud Computing | AWS Learning Journey</title>
-  <link rel="stylesheet" href="../styles.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mastering AWS Cloud Computing | AWS Learning Journey</title>
+    <link rel="stylesheet" href="../styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-<!-- Image Zoom Modal -->
-<div id="image-modal" class="image-modal">
-  <span class="modal-close">&times;</span>
-  <img class="modal-content" id="modal-img" alt="Zoomed view" />
-</div>
+  <!-- Image Zoom Modal -->
+  <div id="image-modal" class="image-zoom-modal">
+    <span class="modal-close">&times;</span>
+    <img class="modal-content" id="modal-img" alt="Zoomed view" />
+  </div>
 
-<body>
-
-  <!-- Navigation Bar -->
-  <header class="navbar">
-    <div class="nav-container">
-      <a href="../index.html" class="brand">My AWS Learning Journey</a>
-      <nav class="nav-links">
-        <a href="../index.html">← All Topics</a>
-        <!-- <a href="#part1">Fundamentals</a>
+  <body>
+    <!-- Navigation Bar -->
+    <header class="navbar">
+      <div class="nav-container">
+        <a href="../index.html" class="brand">My AWS Learning Journey</a>
+        <nav class="nav-links">
+          <a href="../index.html">← All Topics</a>
+          <!-- <a href="#part1">Fundamentals</a>
         <a href="#part2">Account Setup</a>
         <a href="#part3">Hands-On EC2</a> -->
-      </nav>
-    </div>
-  </header>
+        </nav>
+      </div>
+    </header>
 
-  <!-- Main Content -->
-  <main class="container">
-    <article class="post">
-      
-      <!-- Article Header -->
-      <header class="post-header">
-        <div class="breadcrumb">
-          <a href="../index.html">Home</a> / <a href="../index.html#topics">Topics</a> / <span>Topic 01</span>
-        </div>
-        <div class="tag-list">
-          <span class="tag">Cloud Computing</span>
-          <span class="tag">AWS</span>
-          <span class="tag">EC2</span>
-          <span class="tag">Linux</span>
-        </div>
-        <h1 class="post-title">Mastering AWS Cloud Computing</h1>
-        <p class="post-subtitle">A Comprehensive Guide to Launching Your First Linux & Windows EC2 Instances</p>
-        
-        <div class="author-meta">
-          <div class="author-info">
-            <span class="author-name">Sushil Yadav</span>
-            <span class="meta-details">6 min read · Published on AWS Learning Journey</span>
+    <!-- Main Content -->
+    <main class="container">
+      <article class="post">
+        <!-- Article Header -->
+        <header class="post-header">
+          <div class="breadcrumb">
+            <a href="../index.html">Home</a> /
+            <a href="../index.html#topics">Topics</a> / <span>Topic 01</span>
           </div>
-        </div>
-      </header>
+          <div class="tag-list">
+            <span class="tag">Cloud Computing</span>
+            <span class="tag">AWS</span>
+            <span class="tag">EC2</span>
+            <span class="tag">Linux</span>
+          </div>
+          <h1 class="post-title">Mastering AWS Cloud Computing</h1>
+          <p class="post-subtitle">
+            A Comprehensive Guide to Launching Your First Linux & Windows EC2
+            Instances
+          </p>
 
-      <!-- Intro -->
-      <section class="intro-section">
-        <p class="lead">
-          Welcome to the ultimate beginner’s guide to cloud computing and Amazon Web Services (AWS)! Whether you are a developer looking to deploy your code or an aspiring DevOps engineer building your cloud infrastructure skills, understanding how to provision and manage virtual servers is a vital milestone.
-        </p>
-        <p>
-          In this article, we will break down cloud computing fundamentals, explore core service models, walk through setting up your AWS Free Tier account, and launch Linux and Windows EC2 instances with active web servers running.
-        </p>
-      </section>
+          <div class="author-meta">
+            <div class="author-info">
+              <span class="author-name">Sushil Yadav</span>
+              <span class="meta-details"
+                >6 min read · Published on AWS Learning Journey</span
+              >
+            </div>
+          </div>
+        </header>
 
-      <hr class="divider">
+        <!-- Intro -->
+        <section class="intro-section">
+          <p class="lead">
+            Welcome to the ultimate beginner’s guide to cloud computing and
+            Amazon Web Services (AWS)! Whether you are a developer looking to
+            deploy your code or an aspiring DevOps engineer building your cloud
+            infrastructure skills, understanding how to provision and manage
+            virtual servers is a vital milestone.
+          </p>
+          <p>
+            In this article, we will break down cloud computing fundamentals,
+            explore core service models, walk through setting up your AWS Free
+            Tier account, and launch Linux and Windows EC2 instances with active
+            web servers running.
+          </p>
+        </section>
 
-      <!-- Part 1 -->
-      <section id="part1" class="guide-part">
-        <h2>Part 1: Cloud Computing Fundamentals</h2>
-        
-        <h3>What is Cloud Computing?</h3>
-        <ul>
-          <li>Historically, companies had to purchase physical servers, incurring massive upfront costs, high 24/7 electricity and maintenance bills, hardware failure risks, and physical space requirements.</li>
-          <li><strong>Cloud Computing</strong> eliminates these hurdles by allowing you to provision and use servers, storage, databases, and networking over the internet instead of owning physical hardware.</li>
-          <li>Instead of buying 10 physical servers, you rent them on-demand from a cloud provider and pay only for what you consume.</li>
-        </ul>
+        <hr class="divider" />
 
-        <h3>Cloud Service Models</h3>
-        <p>Cloud computing services are categorized into three core models:</p>
-        <ul>
-          <li><strong>IaaS (Infrastructure as a Service):</strong> You manage the OS, applications, and runtime, while the provider manages physical hardware, virtualization, and data centers. <em>Example: AWS EC2.</em></li>
-          <li><strong>PaaS (Platform as a Service):</strong> You manage only your application code and configurations, while the provider handles the OS, runtime, scaling, and underlying infrastructure. <em>Example: AWS Elastic Beanstalk.</em></li>
-          <li><strong>SaaS (Software as a Service):</strong> You use fully managed end-user software over the web; the provider manages every layer. <em>Examples: Gmail, Microsoft 365.</em></li>
-        </ul>
-      </section>
+        <!-- Part 1 -->
+        <section id="part1" class="guide-part">
+          <h2>Part 1: Cloud Computing Fundamentals</h2>
 
-      <!-- Part 2 -->
-      <section id="part2" class="guide-part">
-        <h2>Part 2: Setting Up Your AWS Free Tier Account</h2>
-        <p>Follow this step-by-step procedure to set up a secure AWS Free Tier account:</p>
-        
-        <ol class="steps-list">
-          <li><strong>Go to the AWS Website:</strong> Navigate to the official Amazon Web Services portal and click <strong>Create an Account</strong>.</li>
-          <li><strong>Enter Root User Details:</strong> Provide your root email address and choose an account name. Click <strong>Verify email address</strong>, enter the 6-digit confirmation code from your inbox, and establish a strong password.</li>
-          <li><strong>Select a Plan:</strong> Select the <strong>Free Plan</strong> option to stay eligible for standard tier allowances.</li>
-          <li><strong>Fill in Contact Information:</strong> Enter your full name, phone number, and address. Agree to the terms and select <strong>Agree and continue</strong>.</li>
-          <li><strong>Add Payment and Verification:</strong> Choose your preferred verification method (such as UPI or credit card) and complete authorization.</li>
-          <li><strong>Complete Identity Verification:</strong> Select your account purpose (e.g., <strong>Academic</strong> or <strong>Individual</strong>) and complete identity verification (such as via Aadhaar/DigiLocker).</li>
-          <li><strong>Phone Number Verification:</strong> Complete SMS OTP verification using your active mobile number.</li>
-          <li><strong>Finalize Setup:</strong> Wait briefly while AWS provisions your account backend. Once ready, sign in to the AWS Management Console with your root credentials.</li>
-        </ol>
+          <h3>What is Cloud Computing?</h3>
+          <ul>
+            <li>
+              Historically, companies had to purchase physical servers,
+              incurring massive upfront costs, high 24/7 electricity and
+              maintenance bills, hardware failure risks, and physical space
+              requirements.
+            </li>
+            <li>
+              <strong>Cloud Computing</strong> eliminates these hurdles by
+              allowing you to provision and use servers, storage, databases, and
+              networking over the internet instead of owning physical hardware.
+            </li>
+            <li>
+              Instead of buying 10 physical servers, you rent them on-demand
+              from a cloud provider and pay only for what you consume.
+            </li>
+          </ul>
 
-        <div class="callout callout-warning">
-          <strong>Important Note:</strong> After creating your account, open the UPI app or bank settings you used for authorization and <strong>cancel/turn off any active Auto-Pay mandates</strong> to avoid unintended recurring charges.
-        </div>
-      </section>
+          <h3>Cloud Service Models</h3>
+          <p>
+            Cloud computing services are categorized into three core models:
+          </p>
+          <ul>
+            <li>
+              <strong>IaaS (Infrastructure as a Service):</strong> You manage
+              the OS, applications, and runtime, while the provider manages
+              physical hardware, virtualization, and data centers.
+              <em>Example: AWS EC2.</em>
+            </li>
+            <li>
+              <strong>PaaS (Platform as a Service):</strong> You manage only
+              your application code and configurations, while the provider
+              handles the OS, runtime, scaling, and underlying infrastructure.
+              <em>Example: AWS Elastic Beanstalk.</em>
+            </li>
+            <li>
+              <strong>SaaS (Software as a Service):</strong> You use fully
+              managed end-user software over the web; the provider manages every
+              layer. <em>Examples: Gmail, Microsoft 365.</em>
+            </li>
+          </ul>
+        </section>
 
-      <!-- Part 3 -->
-      <section id="part3" class="guide-part">
-        <h2>Part 3: Hands-On — Launching and Configuring Your EC2 Instances</h2>
-        <p>Amazon EC2 (Elastic Compute Cloud) enables provisioning resizable virtual compute capacity in the cloud within minutes.</p>
+        <!-- Part 2 -->
+        <section id="part2" class="guide-part">
+          <h2>Part 2: Setting Up Your AWS Free Tier Account</h2>
+          <p>
+            Follow this step-by-step procedure to set up a secure AWS Free Tier
+            account:
+          </p>
 
-        <h3>Step 1: Launch an Instance in the AWS Console</h3>
-        <ol class="steps-list">
-          <li>Log in to the AWS Management Console and select your preferred target region (e.g., <strong>Asia Pacific (Mumbai)</strong> or <strong>US East (N. Virginia)</strong>).</li>
-          <li>Search for <strong>EC2</strong> in the top search bar and open the EC2 Dashboard.</li>
-          <li>Click <strong>Launch instance</strong>.</li>
-          <li>
-            Configure your instance parameters:
-            <ul>
-              <li><strong>Name:</strong> <code>First-Server</code></li>
-              <div><img src="../images/First-Server.webp" alt="First-Server"></div>
-              <li><strong>AMI (Amazon Machine Image):</strong> Select <em>Amazon Linux 2</em> (or <em>Ubuntu</em>) for Linux, or <em>Windows Server</em> for Windows.</li>
-              <li><strong>Instance Type:</strong> Choose <code>t3.micro</code> (Free Tier eligible).</li>
-              <li><strong>Key Pair:</strong> Generate a new key pair named <code>my-key</code> with <strong>RSA</strong> encryption and <code>.pem</code> format. Store this file securely.</li>
-              <div><img src="../images/Key Pair.webp" alt="Key Pair"></div>
-              <li><strong>Network Settings:</strong> Allow <strong>SSH (Port 22)</strong> for Linux or <strong>RDP (Port 3389)</strong> for Windows, alongside <strong>HTTP (Port 80)</strong> for web traffic.</li>
-              <li><strong>Storage:</strong> Keep default 8 GB for Linux, or set to 30 GB for Windows Server.</li>
-            </ul>
-          </li>
-          <li>Click <strong>Launch Instance</strong>.</li>
-          <div><img src="../images/Launch Instance.webp" alt="Launch Instance"></div>
-        </ol>
+          <ol class="steps-list">
+            <li>
+              <strong>Go to the AWS Website:</strong> Navigate to the official
+              Amazon Web Services portal and click
+              <strong>Create an Account</strong>.
+            </li>
+            <li>
+              <strong>Enter Root User Details:</strong> Provide your root email
+              address and choose an account name. Click
+              <strong>Verify email address</strong>, enter the 6-digit
+              confirmation code from your inbox, and establish a strong
+              password.
+            </li>
+            <li>
+              <strong>Select a Plan:</strong> Select the
+              <strong>Free Plan</strong> option to stay eligible for standard
+              tier allowances.
+            </li>
+            <li>
+              <strong>Fill in Contact Information:</strong> Enter your full
+              name, phone number, and address. Agree to the terms and select
+              <strong>Agree and continue</strong>.
+            </li>
+            <li>
+              <strong>Add Payment and Verification:</strong> Choose your
+              preferred verification method (such as UPI or credit card) and
+              complete authorization.
+            </li>
+            <li>
+              <strong>Complete Identity Verification:</strong> Select your
+              account purpose (e.g., <strong>Academic</strong> or
+              <strong>Individual</strong>) and complete identity verification
+              (such as via Aadhaar/DigiLocker).
+            </li>
+            <li>
+              <strong>Phone Number Verification:</strong> Complete SMS OTP
+              verification using your active mobile number.
+            </li>
+            <li>
+              <strong>Finalize Setup:</strong> Wait briefly while AWS provisions
+              your account backend. Once ready, sign in to the AWS Management
+              Console with your root credentials.
+            </li>
+          </ol>
 
-        <div class="callout callout-info">
-          <strong>Storage Sizing:</strong> Linux AMIs run smoothly on 8 GB, but Windows Server requires at least 30 GB. A 30 GB EBS gp2/gp3 root volume is within the AWS Free Tier monthly allocation.
-        </div>
+          <div class="callout callout-warning">
+            <strong>Important Note:</strong> After creating your account, open
+            the UPI app or bank settings you used for authorization and
+            <strong>cancel/turn off any active Auto-Pay mandates</strong> to
+            avoid unintended recurring charges.
+          </div>
+        </section>
 
-        <h3>Step 2: Connecting to Your Instance</h3>
+        <!-- Part 3 -->
+        <section id="part3" class="guide-part">
+          <h2>
+            Part 3: Hands-On — Launching and Configuring Your EC2 Instances
+          </h2>
+          <p>
+            Amazon EC2 (Elastic Compute Cloud) enables provisioning resizable
+            virtual compute capacity in the cloud within minutes.
+          </p>
 
-        <h4>A. Connecting to Linux (via Git Bash / Terminal)</h4>
-        <p>Navigate to the folder containing your downloaded key file and adjust permissions:</p>
-        <pre><code>cd ~/Downloads
+          <h3>Step 1: Launch an Instance in the AWS Console</h3>
+          <ol class="steps-list">
+            <li>
+              Log in to the AWS Management Console and select your preferred
+              target region (e.g., <strong>Asia Pacific (Mumbai)</strong> or
+              <strong>US East (N. Virginia)</strong>).
+            </li>
+            <li>
+              Search for <strong>EC2</strong> in the top search bar and open the
+              EC2 Dashboard.
+            </li>
+            <li>Click <strong>Launch instance</strong>.</li>
+            <li>
+              Configure your instance parameters:
+              <ul>
+                <li><strong>Name:</strong> <code>First-Server</code></li>
+                <div>
+                  <img src="../images/First-Server.webp" alt="First-Server" />
+                </div>
+                <li>
+                  <strong>AMI (Amazon Machine Image):</strong> Select
+                  <em>Amazon Linux 2</em> (or <em>Ubuntu</em>) for Linux, or
+                  <em>Windows Server</em> for Windows.
+                </li>
+                <li>
+                  <strong>Instance Type:</strong> Choose
+                  <code>t3.micro</code> (Free Tier eligible).
+                </li>
+                <li>
+                  <strong>Key Pair:</strong> Generate a new key pair named
+                  <code>my-key</code> with <strong>RSA</strong> encryption and
+                  <code>.pem</code> format. Store this file securely.
+                </li>
+                <div><img src="../images/Key Pair.webp" alt="Key Pair" /></div>
+                <li>
+                  <strong>Network Settings:</strong> Allow
+                  <strong>SSH (Port 22)</strong> for Linux or
+                  <strong>RDP (Port 3389)</strong> for Windows, alongside
+                  <strong>HTTP (Port 80)</strong> for web traffic.
+                </li>
+                <li>
+                  <strong>Storage:</strong> Keep default 8 GB for Linux, or set
+                  to 30 GB for Windows Server.
+                </li>
+              </ul>
+            </li>
+            <li>Click <strong>Launch Instance</strong>.</li>
+            <div>
+              <img src="../images/Launch Instance.webp" alt="Launch Instance" />
+            </div>
+          </ol>
+
+          <div class="callout callout-info">
+            <strong>Storage Sizing:</strong> Linux AMIs run smoothly on 8 GB,
+            but Windows Server requires at least 30 GB. A 30 GB EBS gp2/gp3 root
+            volume is within the AWS Free Tier monthly allocation.
+          </div>
+
+          <h3>Step 2: Connecting to Your Instance</h3>
+
+          <h4>A. Connecting to Linux (via Git Bash / Terminal)</h4>
+          <p>
+            Navigate to the folder containing your downloaded key file and
+            adjust permissions:
+          </p>
+          <pre><code>cd ~/Downloads
 chmod 400 my-key.pem
 ssh -i my-key.pem ec2-user@YOUR_PUBLIC_IP</code></pre>
-        <div class="callout callout-info">
-          <strong>Ubuntu note:</strong> For Ubuntu instances, the default username is <code>ubuntu</code> (e.g., <code>ubuntu@YOUR_PUBLIC_IP</code>).
-        </div>
+          <div class="callout callout-info">
+            <strong>Ubuntu note:</strong> For Ubuntu instances, the default
+            username is <code>ubuntu</code> (e.g.,
+            <code>ubuntu@YOUR_PUBLIC_IP</code>).
+          </div>
 
-        <h4>B. Connecting to Windows</h4>
-        <p>In the EC2 console, select your Windows instance, click <strong>Connect</strong>, open the <strong>RDP client</strong> tab, and click <strong>Get Password</strong> using your <code>.pem</code> file. Connect using Remote Desktop Connection with the decrypted Administrator password.</p>
-        <div><img src="../images/Windows EC2 Instance.webp" alt="Windows EC2 Instance"></div>
+          <h4>B. Connecting to Windows</h4>
+          <p>
+            In the EC2 console, select your Windows instance, click
+            <strong>Connect</strong>, open the <strong>RDP client</strong> tab,
+            and click <strong>Get Password</strong> using your
+            <code>.pem</code> file. Connect using Remote Desktop Connection with
+            the decrypted Administrator password.
+          </p>
+          <div>
+            <img
+              src="../images/Windows EC2 Instance.webp"
+              alt="Windows EC2 Instance"
+            />
+          </div>
 
-        <h3>Step 3: Installing and Testing a Web Server</h3>
+          <h3>Step 3: Installing and Testing a Web Server</h3>
 
-        <h4>Option A — Linux: Installing Apache HTTP Server</h4>
-        <pre><code># Update packages
+          <h4>Option A — Linux: Installing Apache HTTP Server</h4>
+          <pre><code># Update packages
 sudo yum update -y
 
 # Install Apache
@@ -172,46 +307,68 @@ sudo systemctl enable httpd
 # Verify service status
 sudo systemctl status httpd</code></pre>
 
-        <div class="callout callout-info">
-          <strong>Ubuntu equivalent:</strong>
-          <pre><code>sudo apt update && sudo apt install apache2 -y
+          <div class="callout callout-info">
+            <strong>Ubuntu equivalent:</strong>
+            <pre><code>sudo apt update && sudo apt install apache2 -y
 sudo systemctl enable --now apache2</code></pre>
-        </div>
+          </div>
 
-        <h4>Option B — Windows: Installing IIS via Server Manager</h4>
-        <ol class="steps-list">
-          <li>Open the Start Menu inside your RDP session and launch <strong>Server Manager</strong>.</li>
-          <li>Select <strong>Add roles and features</strong> on the Dashboard.</li>
-          <li>Navigate to the <strong>Server Roles</strong> stage and check <strong>Web Server (IIS)</strong>.</li>
-          <li>Accept standard role dependencies and complete the installation wizard.</li>
-        </ol>
-        <div><img src="../images/Web Server (IIS).webp" alt="Web Server (IIS)"></div>
+          <h4>Option B — Windows: Installing IIS via Server Manager</h4>
+          <ol class="steps-list">
+            <li>
+              Open the Start Menu inside your RDP session and launch
+              <strong>Server Manager</strong>.
+            </li>
+            <li>
+              Select <strong>Add roles and features</strong> on the Dashboard.
+            </li>
+            <li>
+              Navigate to the <strong>Server Roles</strong> stage and check
+              <strong>Web Server (IIS)</strong>.
+            </li>
+            <li>
+              Accept standard role dependencies and complete the installation
+              wizard.
+            </li>
+          </ol>
+          <div>
+            <img src="../images/Web Server (IIS).webp" alt="Web Server (IIS)" />
+          </div>
 
-        <h3>Step 4: Test Your Web Server</h3>
-        <p>Open a browser and enter your public IPv4 address:</p>
-        <pre><code>http://YOUR_PUBLIC_IP</code></pre>
-        <p>
-          You will see the default <strong>Apache Test Page</strong> on Linux, or the <strong>Internet Information Services (IIS)</strong> welcome page on Windows.
-        </p>
-        <div><img src="../images/Internet Information.webp" alt="Internet Information"></div>
-      </section>
+          <h3>Step 4: Test Your Web Server</h3>
+          <p>Open a browser and enter your public IPv4 address:</p>
+          <pre><code>http://YOUR_PUBLIC_IP</code></pre>
+          <p>
+            You will see the default <strong>Apache Test Page</strong> on Linux,
+            or the <strong>Internet Information Services (IIS)</strong> welcome
+            page on Windows.
+          </p>
+          <div>
+            <img
+              src="../images/Internet Information.webp"
+              alt="Internet Information"
+            />
+          </div>
+        </section>
 
-      <!-- Topic Navigation Footer -->
-      <nav class="topic-pagination">
-        <a href="../index.html" class="btn btn-secondary">← Back to Overview</a>
-        <a href="../topics/mastering-aws-ec2.html" class="btn btn-primary">Next: Topic →</a>
-      </nav>
+        <!-- Topic Navigation Footer -->
+        <nav class="topic-pagination">
+          <a href="../index.html" class="btn btn-secondary"
+            >← Back to Overview</a
+          >
+          <a href="../topics/mastering-aws-ec2.html" class="btn btn-primary"
+            >Next: Topic →</a
+          >
+        </nav>
+      </article>
+    </main>
 
-    </article>
-  </main>
-
-  <footer class="footer">
-    <div class="container footer-content">
-      <p>© 2026 Sushil Yadav · AWS Learning Journey</p>
-    </div>
-  </footer>
-<!-- Put before the closing </body> tag -->
-  <script src="../functions.js"></script>
-
-</body>
+    <footer class="footer">
+      <div class="container footer-content">
+        <p>© 2026 Sushil Yadav · AWS Learning Journey</p>
+      </div>
+    </footer>
+    <!-- Put before the closing </body> tag -->
+    <script src="../functions.js"></script>
+  </body>
 </html>
