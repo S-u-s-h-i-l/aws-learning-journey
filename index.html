@@ -1,135 +1,201 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AWS Learning Journey | Sushil Yadav</title>
-  <link rel="stylesheet" href="styles.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-</head>
-<body>
-
-  <!-- Navigation Bar -->
-  <header class="navbar">
-    <div class="nav-container">
-      <a href="index.html" class="brand">My AWS Learning Journey</a>
-      <nav class="nav-links">
-        <a href="index.html" class="active">Home</a>
-        <a href="#topics">Topics</a>
-        <a href="#about">About</a>
-      </nav>
-    </div>
-  </header>
-
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="container hero-content">
-      <span class="badge">Hands-On Cloud Engineering</span>
-      <h1 class="hero-title">Documenting My AWS Cloud Architecture Journey</h1>
-      <p class="hero-subtitle">
-        A structured collection of practical guides, architectural patterns, and production-tested tutorials designed to master AWS from compute fundamentals to scalable cloud architectures.
-      </p>
-      <div class="hero-cta">
-        <a href="#topics" class="btn btn-primary">Explore All Topics</a>
-        <a href="topics/mastering-aws-cloud-computing.html" class="btn btn-secondary">Start with Topic 1 →</a>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AWS Learning Journey | Sushil Yadav</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <header class="navbar">
+      <div class="nav-container">
+        <a href="index.html" class="brand">My AWS Learning Journey</a>
+        <nav class="nav-links">
+          <a href="index.html" class="active">Home</a>
+          <a href="#topics">Topics</a>
+          <a href="#about">About</a>
+        </nav>
       </div>
-    </div>
-  </section>
+    </header>
 
-  <!-- Topics Grid Section -->
-  <main class="container" id="topics">
-    <div class="section-header">
-      <h2>Curated Topics & Guides</h2>
-      <p>Follow along through structured hands-on modules.</p>
-    </div>
-
-    <div class="grid-cards">
-
-      <!-- Topic Card 1 (Active) -->
-      <article class="card">
-        <div class="card-meta">
-          <span class="tag tag-active">Topic 01</span>
-          <span class="read-time">6 min read</span>
-        </div>
-        <h3 class="card-title">
-          <a href="topics/mastering-aws-cloud-computing.html">Mastering AWS Cloud Computing</a>
-        </h3>
-        <p class="card-desc">
-          Cloud computing fundamentals, service models (IaaS, PaaS, SaaS), setting up the AWS Free Tier account, and launching Linux & Windows EC2 instances with live web servers.
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container hero-content">
+        <span class="badge">Hands-On Cloud Engineering</span>
+        <h1 class="hero-title">
+          Documenting My AWS Cloud Architecture Journey
+        </h1>
+        <p class="hero-subtitle">
+          A structured collection of practical guides, architectural patterns,
+          and production-tested tutorials designed to master AWS from compute
+          fundamentals to scalable cloud architectures.
         </p>
-        <div class="card-tags">
-          <span>EC2</span>
-          <span>Linux</span>
-          <span>IIS / Apache</span>
+        <div class="hero-cta">
+          <a href="#topics" class="btn btn-primary">Explore All Topics</a>
+          <a
+            href="topics/mastering-aws-cloud-computing.html"
+            class="btn btn-secondary"
+            >Start with Topic 1 →</a
+          >
         </div>
-        <a href="topics/mastering-aws-cloud-computing.html" class="card-link">Read Full Guide →</a>
-      </article>
+      </div>
+    </section>
 
+    <!-- Topics Grid Section -->
+    <main class="container" id="topics">
+      <div class="section-header">
+        <h2>Curated Topics & Guides</h2>
+        <p>Follow along through structured hands-on modules.</p>
+      </div>
 
-      <!-- Topic Card 2 (Active) -->
-      <article class="card">
-        <div class="card-meta">
-          <span class="tag tag-active">Topic 02</span>
-          <span class="read-time">4 min read</span>
-        </div>
-        <h3 class="card-title">
-          <a href="topics/mastering-aws-ec2.html">Mastering AWS EC2</a>
-        </h3>
-        <p class="card-desc">
-          Managing Elastic IPs (static IPv4), vertical scaling by modifying instance types, and deep-dive EBS block storage provisioning, snapshots, and filesystem mounting.
+      <div class="grid-cards">
+        <!-- Topic Card 1 (Active) -->
+        <article class="card">
+          <div class="card-meta">
+            <span class="tag tag-active">Topic 01</span>
+            <span class="read-time">6 min read</span>
+          </div>
+          <h3 class="card-title">
+            <a href="topics/mastering-aws-cloud-computing.html"
+              >Mastering AWS Cloud Computing</a
+            >
+          </h3>
+          <p class="card-desc">
+            Cloud computing fundamentals, service models (IaaS, PaaS, SaaS),
+            setting up the AWS Free Tier account, and launching Linux & Windows
+            EC2 instances with live web servers.
+          </p>
+          <div class="card-tags">
+            <span>EC2</span>
+            <span>Linux</span>
+            <span>IIS / Apache</span>
+          </div>
+          <a href="topics/mastering-aws-cloud-computing.html" class="card-link"
+            >Read Full Guide →</a
+          >
+        </article>
+
+        <!-- Topic Card 2 (Active) -->
+        <article class="card">
+          <div class="card-meta">
+            <span class="tag tag-active">Topic 02</span>
+            <span class="read-time">4 min read</span>
+          </div>
+          <h3 class="card-title">
+            <a href="topics/mastering-aws-ec2.html">Mastering AWS EC2</a>
+          </h3>
+          <p class="card-desc">
+            Managing Elastic IPs (static IPv4), vertical scaling by modifying
+            instance types, and deep-dive EBS block storage provisioning,
+            snapshots, and filesystem mounting.
+          </p>
+          <div class="card-tags">
+            <span>Elastic IP</span>
+            <span>EBS</span>
+            <span>Vertical Scaling</span>
+            <span>mkfs / fstab</span>
+          </div>
+          <a href="topics/mastering-aws-ec2.html" class="card-link"
+            >Read Full Guide →</a
+          >
+        </article>
+
+        <!-- Topic Card 3 (Active) -->
+        <article class="card">
+          <div class="card-meta">
+            <span class="tag tag-active">Topic 03</span>
+            <span class="read-time">5 min read</span>
+          </div>
+          <h3 class="card-title">
+            <a href="topics/aws-ec2-cost-optimization.html"
+              >Mastering AWS EC2 (Part 2): Cost Optimization & Purchasing
+              Models</a
+            >
+          </h3>
+          <p class="card-desc">
+            Strategic guide to Spot Instances, Compute & EC2 Savings Plans,
+            Regional/Zonal Reserved Instances, Dedicated Hosts (BYOL), and
+            Capacity Reservations.
+          </p>
+          <div class="card-tags">
+            <span>FinOps</span>
+            <span>Spot</span>
+            <span>Savings Plans</span>
+            <span>RIs</span>
+          </div>
+          <a href="topics/aws-ec2-cost-optimization.html" class="card-link"
+            >Read Full Guide →</a
+          >
+        </article>
+
+        <!-- Topic Card 4 (Active) -->
+        <article class="post-card">
+          <div class="post-card-content">
+            <div class="post-meta">
+              <span class="category">AWS</span>
+              <span class="read-time">7 min read</span>
+            </div>
+
+            <h2 class="post-title">
+              <a href="topics/mastering-aws-ec2-part3-efs-shared-storage.html">
+                Mastering AWS EC2 (Part 3): Amazon Elastic File System (EFS)
+                Shared Storage[cite: 1]
+              </a>
+            </h2>
+
+            <p class="post-excerpt">
+              A step-by-step hands-on guide to multi-instance Linux file sharing
+              using Amazon EFS[cite: 1]. Learn how NFS protocols operate,
+              configure security groups on TCP port 2049, mount across
+              availability zones, and enforce boot persistence with
+              /etc/fstab[cite: 1].
+            </p>
+
+            <div class="post-tags">
+              <span class="tag">#AWS</span>
+              <span class="tag">#EC2</span>
+              <span class="tag">#EFS</span>
+              <span class="tag">#Linux</span>
+              <span class="tag">#CloudComputing</span>
+            </div>
+
+            <div class="post-footer">
+              <a
+                href="topics/mastering-aws-ec2-part3-efs-shared-storage.html"
+                class="card-link"
+                >Read Full Guide →</a
+              >
+            </div>
+          </div>
+        </article>
+      </div>
+    </main>
+
+    <!-- About Section -->
+    <section class="about-section" id="about">
+      <div class="container about-container">
+        <h2>About This Journey</h2>
+        <p>
+          Hi, I'm <strong>Sushil Yadav</strong>. I write hands-on guides and
+          document real-world cloud practices, systems administration, and data
+          workflows. This site serves as a central reference hub for my
+          step-by-step Learning Journey.
         </p>
-        <div class="card-tags">
-          <span>Elastic IP</span>
-          <span>EBS</span>
-          <span>Vertical Scaling</span>
-          <span>mkfs / fstab</span>
-        </div>
-        <a href="topics/mastering-aws-ec2.html" class="card-link">Read Full Guide →</a>
-      </article>
+      </div>
+    </section>
 
-      
-      <!-- Topic Card 3 (Active) -->
-      <article class="card">
-        <div class="card-meta">
-          <span class="tag tag-active">Topic 03</span>
-          <span class="read-time">5 min read</span>
-        </div>
-        <h3 class="card-title">
-          <a href="topics/aws-ec2-cost-optimization.html">Mastering AWS EC2 (Part 2): Cost Optimization & Purchasing Models</a>
-        </h3>
-        <p class="card-desc">
-          Strategic guide to Spot Instances, Compute & EC2 Savings Plans, Regional/Zonal Reserved Instances, Dedicated Hosts (BYOL), and Capacity Reservations.
-        </p>
-        <div class="card-tags">
-          <span>FinOps</span>
-          <span>Spot</span>
-          <span>Savings Plans</span>
-          <span>RIs</span>
-        </div>
-        <a href="topics/aws-ec2-cost-optimization.html" class="card-link">Read Full Guide →</a>
-      </article>
-
-    </div>
-  </main>
-
-  <!-- About Section -->
-  <section class="about-section" id="about">
-    <div class="container about-container">
-      <h2>About This Journey</h2>
-      <p>
-        Hi, I'm <strong>Sushil Yadav</strong>. I write hands-on guides and document real-world cloud practices, systems administration, and data workflows. This site serves as a central reference hub for my step-by-step Learning Journey.
-      </p>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container footer-content">
-      <p>© 2026 Sushil Yadav · AWS Learning Journey</p>
-    </div>
-  </footer>
-
-</body>
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container footer-content">
+        <p>© 2026 Sushil Yadav · AWS Learning Journey</p>
+      </div>
+    </footer>
+  </body>
 </html>

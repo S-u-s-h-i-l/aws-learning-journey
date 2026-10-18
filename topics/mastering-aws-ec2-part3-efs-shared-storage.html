@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Hands-on guide to AWS EC2 shared storage with Amazon EFS: NFS protocols, security groups, multi-instance mounting, and fstab persistence."
+    />
+    <title>Mastering AWS EC2 (Part 3): Amazon EFS Shared Storage</title>
+
+    <!-- Main project stylesheet -->
+    <link rel="stylesheet" href="../style.css" />
+  </head>
+  <body>
+    <main class="content-container">
+      <article class="post-content">
+        <header class="post-header">
+          <h1>
+            Mastering AWS EC2 (Part 3): Amazon Elastic File System (EFS) Shared
+            Storage
+          </h1>
+          <p class="post-meta">
+            By <strong>Sushil Yadav</strong> &bull; Cloud & Infrastructure
+            Engineering
+          </p>
+        </header>
+
+        <p class="lead">
+          In Part 1 of this series, we configured persistent block storage using
+          Amazon EBS. However, because an EBS volume can only attach to a single
+          EC2 instance within the same Availability Zone, workloads requiring
+          multiple compute nodes to access a shared file directory concurrently
+          require a network-attached file system.
+        </p>
+
+        <p>
+          <strong>Amazon Elastic File System (EFS)</strong> delivers a fully
+          managed, serverless, highly available network file system built
+          specifically for Linux environments.
+        </p>
+
+        <!-- Architecture Screenshot -->
+        <figure class="post-figure">
+          <img
+            src="../assets/images/efs-multi-az-architecture.png"
+            alt="Amazon EFS Multi-AZ Network Storage Architecture"
+            loading="lazy"
+          />
+          <figcaption>
+            Figure 1: Multi-instance shared access across distinct Availability
+            Zones via EFS mount targets.
+          </figcaption>
+        </figure>
+
+        <hr />
+
+        <h2>1. Storage Architecture Comparison: EBS vs. S3 vs. EFS</h2>
+        <p>
+          Choosing the correct storage engine depends on your access patterns,
+          scaling needs, and OS requirements:
+        </p>
+
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>Elastic Block Store (EBS)</th>
+                <th>Simple Storage Service (S3)</th>
+                <th>Elastic File System (EFS)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Storage Paradigm</strong></td>
+                <td>Block Storage</td>
+                <td>Object Storage</td>
+                <td>File Storage (NFS)</td>
+              </tr>
+              <tr>
+                <td><strong>Access Pattern</strong></td>
+                <td>Single EC2 instance attachment</td>
+                <td>Global API / HTTP access</td>
+                <td>Shared network mount across 100+ instances</td>
+              </tr>
+              <tr>
+                <td><strong>Capacity</strong></td>
+                <td>Fixed provisioned volume size</td>
+                <td>Unlimited (Max 50 TB / object)</td>
+                <td>Fully elastic; auto-grows and auto-shrinks</td>
+              </tr>
+              <tr>
+                <td><strong>OS Compatibility</strong></td>
+                <td>Linux &amp; Windows</td>
+                <td>Platform-independent</td>
+                <td>Optimized for Linux workloads</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <hr />
+
+        <h2>2. EFS Architecture, Protocols, and Redundancy Modes</h2>
+
+        <h3>Network File System (NFS) Protocol</h3>
+        <p>
+          Amazon EFS uses standard <strong>NFS v4.0 and v4.1</strong> protocols.
+          Operating at the network layer allows compute clusters across separate
+          Availability Zones to concurrently read and write to the same
+          directory structure.
+        </p>
+
+        <h3>Network Security Requirements</h3>
+        <p>
+          For EC2 instances to communicate with EFS mount targets, the security
+          group assigned to EFS must explicitly allow
+          <strong>Inbound NFS traffic on TCP Port 2049</strong> from your EC2
+          instance security group.
+        </p>
+
+        <h3>Redundancy &amp; Storage Classes</h3>
+        <ul>
+          <li>
+            <strong>Regional Storage Class:</strong> Replicates data across
+            multiple Availability Zones (e.g., <code>1a</code>, <code>1b</code>,
+            <code>1c</code>) within an AWS Region, delivering multi-AZ
+            durability.
+          </li>
+          <li>
+            <strong>One Zone Storage Class:</strong> Stores data inside a single
+            Availability Zone, offering a cost-optimized solution for
+            non-critical backups or staging environments.
+          </li>
+        </ul>
+
+        <hr />
+
+        <h2>3. Step-by-Step EFS Mounting &amp; Persistence Lab</h2>
+
+        <h3>Step 1: Launch the Base EC2 Instance</h3>
+        <ol>
+          <li>
+            Open the EC2 Console and launch a Linux virtual machine (such as
+            Ubuntu 22.04 LTS).
+          </li>
+          <li>
+            Assign a dedicated security group (e.g., <code>ec2-web-sg</code>)
+            and attach your SSH key pair.
+          </li>
+          <li>
+            Note your instance ID, VPC, and Availability Zone once it enters the
+            <strong>Running</strong> state.
+          </li>
+        </ol>
+
+        <h3>Step 2: Create the Amazon EFS File System</h3>
+        <ol>
+          <li>
+            Navigate to <strong>EFS &gt; File systems</strong> and click
+            <strong>Create file system</strong>.
+          </li>
+          <li>
+            Name the file system (e.g., <code>production-shared-efs</code>).
+          </li>
+          <li>
+            Choose your deployment model (<strong>Regional</strong> or
+            <strong>One Zone</strong>).
+          </li>
+          <li>
+            Click <strong>Create</strong> and confirm the lifecycle state
+            transitions to <strong>Available</strong>.
+          </li>
+        </ol>
+
+        <!-- EFS Creation Screenshot -->
+        <figure class="post-figure">
+          <img
+            src="../assets/images/efs-create-file-system-modal.png"
+            alt="Amazon EFS File System Creation Dialog"
+            loading="lazy"
+          />
+          <figcaption>
+            Figure 2: Creating a Regional Amazon EFS file system inside the
+            target VPC.
+          </figcaption>
+        </figure>
+
+        <h3>Step 3: Configure Matching Security Groups on EFS</h3>
+        <ol>
+          <li>
+            Select the new EFS volume, click the <strong>Network</strong> tab,
+            and click <strong>Manage</strong>.
+          </li>
+          <li>
+            Remove the default VPC security groups from each subnet mount
+            target.
+          </li>
+          <li>
+            Attach the security group permitting
+            <strong>Inbound TCP Port 2049</strong> traffic from your EC2
+            instances (or apply the same <code>ec2-web-sg</code>).
+          </li>
+        </ol>
+
+        <!-- Network Tab Screenshot -->
+        <figure class="post-figure">
+          <img
+            src="../assets/images/efs-network-tab-security-groups.png"
+            alt="Managing EFS Mount Target Security Groups"
+            loading="lazy"
+          />
+          <figcaption>
+            Figure 3: Attaching authorized security groups to EFS mount targets
+            across all subnets.
+          </figcaption>
+        </figure>
+
+        <h3>Step 4: Install NFS Client Utilities on EC2</h3>
+        <p>
+          Connect to your EC2 instance via SSH and install the system NFS client
+          utilities:
+        </p>
+
+        <pre><code class="language-bash">sudo apt update && sudo apt install nfs-common -y</code></pre>
+
+        <h3>Step 5: Obtain EFS Mount Command from AWS Console</h3>
+        <ol>
+          <li>
+            In the EFS Console, select your active file system and click
+            <strong>Attach</strong> in the top-right corner.
+          </li>
+          <li>Select <strong>Using the NFS client</strong>.</li>
+          <li>
+            Copy the generated <code>sudo mount -t nfs4 ...</code> command
+            string.
+          </li>
+        </ol>
+
+        <!-- Attach Command Modal Screenshot -->
+        <figure class="post-figure">
+          <img
+            src="../assets/images/efs-attach-modal-nfs-command.png"
+            alt="EFS Attach Modal with NFS Client Mount Command"
+            loading="lazy"
+          />
+          <figcaption>
+            Figure 4: Copying the auto-generated NFS mount command string from
+            the AWS Console.
+          </figcaption>
+        </figure>
+
+        <h3>Step 6: Create Mount Point and Attach EFS</h3>
+        <p>
+          Create a mount destination directory on the instance and run the mount
+          command:
+        </p>
+
+        <pre><code class="language-bash"># Create mount directory
+mkdir -p /home/ubuntu/efs
+
+# Mount EFS via NFS v4.1
+sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport &lt;EFS-DNS-NAME&gt;:/ /home/ubuntu/efs</code></pre>
+
+        <h3>Step 7: Grant Ownership &amp; Test Multi-Instance Sync</h3>
+        <p>
+          Grant standard user ownership to the mounted directory and add
+          application files or repository clones:
+        </p>
+
+        <pre><code class="language-bash"># Grant user ownership
+sudo chown -R ubuntu:ubuntu /home/ubuntu/efs
+
+# Navigate and add data
+cd /home/ubuntu/efs
+git clone &lt;REPOSITORY-URL&gt;</code></pre>
+
+        <!-- Terminal Output Screenshot -->
+        <figure class="post-figure">
+          <img
+            src="../assets/images/terminal-df-h-efs-mount.png"
+            alt="Terminal output verifying EFS mount via df -h command"
+            loading="lazy"
+          />
+          <figcaption>
+            Figure 5: Checking active network storage mounting with df -h.
+          </figcaption>
+        </figure>
+
+        <p>
+          Mounting this same EFS volume to a second or third EC2 instance makes
+          all cloned files instantly accessible across every attached server in
+          real time.
+        </p>
+
+        <h3>Step 8: Configure Permanent Boot Mount (/etc/fstab)</h3>
+        <p>
+          Manual NFS mounts do not persist across instance reboots. To enforce
+          automatic re-mounting during boot, edit <code>/etc/fstab</code>:
+        </p>
+
+        <pre><code class="language-bash">sudo nano /etc/fstab</code></pre>
+
+        <p>Add the following mount declaration at the bottom of the file:</p>
+
+        <pre><code class="language-text">&lt;EFS-DNS-NAME&gt;:/ /home/ubuntu/efs nfs4 defaults,_netdev 0 0</code></pre>
+
+        <blockquote>
+          <strong>Pro-Tip:</strong> The <code>_netdev</code> parameter is
+          critical for all network-attached storage mounts. It forces the Linux
+          boot manager to wait until network stacks and DNS resolvers are fully
+          initialized before trying to mount the remote file system.
+        </blockquote>
+
+        <hr />
+
+        <h2>Summary</h2>
+        <p>
+          Amazon EFS provides scalable, elastic shared storage suitable for
+          continuous integration runners, CMS application clusters, container
+          volumes, and distributed analytics. By pairing proper security groups
+          on <strong>NFS Port 2049</strong> with clean
+          <code>/etc/fstab</code> configurations, your EC2 fleet achieves
+          resilient multi-instance data sharing across availability zones.
+        </p>
+      </article>
+    </main>
+
+    <!-- External JavaScript holding copy button & zoom handlers -->
+    <script src="../functions.js"></script>
+  </body>
+</html>

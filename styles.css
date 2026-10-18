@@ -1,6 +1,7 @@
 :root {
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  --font-sans:
+    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
   --bg-page: #f8fafc;
   --bg-surface: #ffffff;
   --text-primary: #0f172a;
@@ -8,7 +9,7 @@
   --text-muted: #94a3b8;
   --border-color: #e2e8f0;
   --primary-accent: #ff9900; /* AWS Gold/Orange */
-  --primary-dark: #131921;   /* AWS Header Dark */
+  --primary-dark: #131921; /* AWS Header Dark */
   --primary-blue: #0284c7;
   --code-bg: #0f172a;
   --code-text: #e2e8f0;
@@ -63,7 +64,8 @@ body {
   transition: color 0.2s ease;
 }
 
-.nav-links a:hover, .nav-links a.active {
+.nav-links a:hover,
+.nav-links a.active {
   color: var(--primary-accent);
 }
 
@@ -178,7 +180,9 @@ body {
   padding: 1.75rem;
   display: flex;
   flex-direction: column;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .card:hover {
@@ -389,7 +393,8 @@ p {
   margin-bottom: 1rem;
 }
 
-ul, ol {
+ul,
+ol {
   margin: 0.75rem 0 1.25rem 1.5rem;
 }
 
@@ -414,7 +419,8 @@ code {
   font-size: 0.9em;
 }
 
-p code, li code {
+p code,
+li code {
   background: #f1f5f9;
   color: #0f172a;
   padding: 0.15rem 0.4rem;
@@ -525,7 +531,9 @@ pre {
 /* Image Zoom Cursor */
 .zoomable-img {
   cursor: zoom-in;
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
 }
 
 .zoomable-img:hover {
@@ -579,4 +587,11 @@ pre {
     transform: scale(1);
     opacity: 1;
   }
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 1.5rem;
 }
