@@ -20,12 +20,6 @@
   padding: 0;
 }
 
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
 body {
   font-family: var(--font-sans);
   background-color: var(--bg-page);
@@ -483,5 +477,109 @@ p code, li code {
   }
   .post-title {
     font-size: 1.75rem;
+  }
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Container to position the button relative to the code block */
+.code-wrapper {
+  position: relative;
+  margin: 1.5rem 0;
+}
+
+/* Copy button styling */
+.copy-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #e2e8f0;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 5px 10px;
+  font-size: 0.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  user-select: none;
+}
+
+.copy-btn:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  color: #fff;
+}
+
+.copy-btn.copied {
+  background-color: #22c55e;
+  color: #ffffff;
+  border-color: #22c55e;
+}
+
+/* Indicate images are clickable */
+article img,
+main img {
+  cursor: zoom-in;
+  transition: opacity 0.2s ease;
+}
+
+article img:hover,
+main img:hover {
+  opacity: 0.95;
+}
+
+/* Modal overlay background */
+.image-modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(4px);
+  justify-content: center;
+  align-items: center;
+  cursor: zoom-out;
+}
+
+/* Active state to display flex */
+.image-modal.active {
+  display: flex;
+}
+
+/* Zoomed image */
+.modal-content {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  animation: zoomIn 0.25s ease-out;
+}
+
+/* Close icon */
+.modal-close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  color: #fff;
+  font-size: 35px;
+  font-weight: bold;
+  cursor: pointer;
+  user-select: none;
+}
+
+@keyframes zoomIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
   }
 }
