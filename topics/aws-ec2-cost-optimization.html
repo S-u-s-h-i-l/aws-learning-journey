@@ -1,230 +1,393 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mastering AWS EC2 (Part 2): Cost Optimization & Purchasing Models | AWS Learning Journey</title>
-  <link rel="stylesheet" href="../styles.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Mastering AWS EC2 (Part 2): Cost Optimization & Purchasing Models | AWS
+      Learning Journey
+    </title>
+    <link rel="stylesheet" href="../styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-<!-- Image Zoom Modal -->
-<div id="image-modal" class="image-modal">
-  <span class="modal-close">&times;</span>
-  <img class="modal-content" id="modal-img" alt="Zoomed view" />
-</div>
+  <!-- Image Zoom Modal -->
+  <div id="image-modal" class="image-modal">
+    <span class="modal-close">&times;</span>
+    <img class="modal-content" id="modal-img" alt="Zoomed view" />
+  </div>
 
-<body>
-
-  <!-- Navigation Bar -->
-  <header class="navbar">
-    <div class="nav-container">
-      <a href="../index.html" class="brand">My AWS Learning Journey</a>
-      <nav class="nav-links">
-        <a href="../index.html">← All Topics</a>
-        <!-- <a href="#spot">Spot</a>
+  <body>
+    <!-- Navigation Bar -->
+    <header class="navbar">
+      <div class="nav-container">
+        <a href="../index.html" class="brand">My AWS Learning Journey</a>
+        <nav class="nav-links">
+          <a href="../index.html">← All Topics</a>
+          <!-- <a href="#spot">Spot</a>
         <a href="#savings-plans">Savings Plans</a>
         <a href="#ri">Reserved Instances</a>
         <a href="#dedicated">Dedicated Hosts</a>
         <a href="#capacity">Capacity Reservations</a> -->
-      </nav>
-    </div>
-  </header>
+        </nav>
+      </div>
+    </header>
 
-  <!-- Main Content -->
-  <main class="container">
-    <article class="post">
-      
-      <!-- Article Header -->
-      <header class="post-header">
-        <div class="breadcrumb">
-          <a href="../index.html">Home</a> / <a href="../index.html#topics">Topics</a> / <span>Topic 03</span>
-        </div>
-        <div class="tag-list">
-          <span class="tag">AWS</span>
-          <span class="tag">EC2</span>
-          <span class="tag">Cost Optimization</span>
-          <span class="tag">FinOps</span>
-          <span class="tag">Cloud Architecture</span>
-        </div>
-        <h1 class="post-title">Mastering AWS EC2 (Part 2)</h1>
-        <p class="post-subtitle">Cost Optimization & Purchasing Models</p>
-        
-        <div class="author-meta">
-          <div class="author-info">
-            <span class="author-name">Sushil Yadav</span>
-            <span class="meta-details">5 min read · Published on AWS Learning Journey</span>
+    <!-- Main Content -->
+    <main class="container">
+      <article class="post">
+        <!-- Article Header -->
+        <header class="post-header">
+          <div class="breadcrumb">
+            <a href="../index.html">Home</a> /
+            <a href="../index.html#topics">Topics</a> / <span>Topic 03</span>
           </div>
-        </div>
-      </header>
+          <div class="tag-list">
+            <span class="tag">AWS</span>
+            <span class="tag">EC2</span>
+            <span class="tag">Cost Optimization</span>
+            <span class="tag">FinOps</span>
+            <span class="tag">Cloud Architecture</span>
+          </div>
+          <h1 class="post-title">Mastering AWS EC2 (Part 2)</h1>
+          <p class="post-subtitle">Cost Optimization & Purchasing Models</p>
 
-      <!-- Intro Section -->
-      <section class="intro-section">
-        <h3 style="margin-top:0;">A Hands-On Guide to Spot Instances, Savings Plans, Reserved Instances, Dedicated Hosts, and Capacity Reservations</h3>
-        <p class="lead">
-          In Part 1 of this series, we explored the core operational mechanics of AWS EC2: allocating Elastic IPs for persistent public networking, vertically scaling instance sizes on demand, and provisioning, formatting, and mounting Amazon EBS block storage volumes.
-        </p>
-        <p>
-          While On-Demand pricing offers complete operational flexibility with zero long-term commitment, running 24/7 workloads exclusively on On-Demand instances can lead to unnecessary cloud spend. To align infrastructure costs with workload requirements, AWS provides five distinct compute purchasing models.
-        </p>
-      </section>
+          <div class="author-meta">
+            <div class="author-info">
+              <span class="author-name">Sushil Yadav</span>
+              <span class="meta-details"
+                >5 min read · Published on AWS Learning Journey</span
+              >
+            </div>
+          </div>
+        </header>
 
-      <hr class="divider">
+        <!-- Intro Section -->
+        <section class="intro-section">
+          <h3 style="margin-top: 0">
+            A Hands-On Guide to Spot Instances, Savings Plans, Reserved
+            Instances, Dedicated Hosts, and Capacity Reservations
+          </h3>
+          <div><img src="../images/headder.webp" alt="headder" /></div>
+          <p class="lead">
+            In Part 1 of this series, we explored the core operational mechanics
+            of AWS EC2: allocating Elastic IPs for persistent public networking,
+            vertically scaling instance sizes on demand, and provisioning,
+            formatting, and mounting Amazon EBS block storage volumes.
+          </p>
+          <p>
+            While On-Demand pricing offers complete operational flexibility with
+            zero long-term commitment, running 24/7 workloads exclusively on
+            On-Demand instances can lead to unnecessary cloud spend. To align
+            infrastructure costs with workload requirements, AWS provides five
+            distinct compute purchasing models.
+          </p>
+        </section>
 
-      <!-- 1. Spot Instances -->
-      <section id="spot" class="guide-part">
-        <h2>1. Spot Instances: Deep Discounts for Fault-Tolerant Compute</h2>
-        <p>
-          Spot Instances let you tap into spare, unused EC2 compute capacity across AWS data centers at steep discounts — up to <strong>90% off standard On-Demand pricing</strong>.
-        </p>
+        <hr class="divider" />
 
-        <h3>How Spot Works Under the Hood</h3>
-        <p>
-          AWS monetizes idle server capacity by offering it as Spot capacity at market-driven rates that adjust gradually based on long-term supply and demand. Because this is surplus compute, AWS reserves the right to reclaim instances whenever On-Demand workloads require that physical capacity.
-        </p>
-        <p>Spot Instances are ideal for stateless, non-critical, or batch-oriented workloads, including:</p>
-        <ul>
-          <li>Containerized batch processing jobs</li>
-          <li>Big data ETL pipelines</li>
-          <li>Background image and video rendering tasks</li>
-          <li>Transient testing and CI/CD development environments</li>
-        </ul>
+        <!-- 1. Spot Instances -->
+        <section id="spot" class="guide-part">
+          <h2>1. Spot Instances: Deep Discounts for Fault-Tolerant Compute</h2>
+          <p>
+            Spot Instances let you tap into spare, unused EC2 compute capacity
+            across AWS data centers at steep discounts — up to
+            <strong>90% off standard On-Demand pricing</strong>.
+          </p>
 
-        <div class="callout callout-warning">
-          <strong>⚠️ Critical Production Rule:</strong> Never use Spot Instances for 24/7 mission-critical production workloads. Because AWS can reclaim Spot capacity with only a <strong>2-minute notice</strong> (delivered via Amazon EventBridge and EC2 instance metadata) when regional demand spikes, relying on Spot for primary production databases or stateful web apps introduces unacceptable risk.
-        </div>
+          <h3>How Spot Works Under the Hood</h3>
+          <p>
+            AWS monetizes idle server capacity by offering it as Spot capacity
+            at market-driven rates that adjust gradually based on long-term
+            supply and demand. Because this is surplus compute, AWS reserves the
+            right to reclaim instances whenever On-Demand workloads require that
+            physical capacity.
+          </p>
+          <p>
+            Spot Instances are ideal for stateless, non-critical, or
+            batch-oriented workloads, including:
+          </p>
+          <ul>
+            <li>Containerized batch processing jobs</li>
+            <li>Big data ETL pipelines</li>
+            <li>Background image and video rendering tasks</li>
+            <li>Transient testing and CI/CD development environments</li>
+          </ul>
 
-        <h3>Configuring Spot Requests</h3>
-        <p>When creating a Spot Request in the AWS Management Console, you define your target operational boundaries:</p>
-        <ul>
-          <li><strong>Target Instance Count:</strong> Define minimum and maximum bounds (e.g., 1 to 4 instances).</li>
-          <li><strong>Hardware Bounds:</strong> Specify acceptable RAM ranges (e.g., 8 GB to 32 GB) and vCPU counts, allowing AWS to fulfill the request using any matching available spare instance type.</li>
-        </ul>
-      </section>
+          <div class="callout callout-warning">
+            <strong>⚠️ Critical Production Rule:</strong> Never use Spot
+            Instances for 24/7 mission-critical production workloads. Because
+            AWS can reclaim Spot capacity with only a
+            <strong>2-minute notice</strong> (delivered via Amazon EventBridge
+            and EC2 instance metadata) when regional demand spikes, relying on
+            Spot for primary production databases or stateful web apps
+            introduces unacceptable risk.
+          </div>
 
-      <!-- 2. Savings Plans -->
-      <section id="savings-plans" class="guide-part">
-        <h2>2. Savings Plans: Flexible Hourly Spend Commitments</h2>
-        <p>
-          Savings Plans offer discounted compute rates in exchange for committing to a consistent amount of hourly spend (measured in $/hour) for a <strong>1-year or 3-year term</strong>.
-        </p>
+          <h3>Configuring Spot Requests</h3>
+          <div>
+            <img src="../images/spot instance.webp" alt="spot instance" />
+          </div>
+          <p>
+            When creating a Spot Request in the AWS Management Console, you
+            define your target operational boundaries:
+          </p>
+          <ul>
+            <li>
+              <strong>Target Instance Count:</strong> Define minimum and maximum
+              bounds (e.g., 1 to 4 instances).
+            </li>
+            <li>
+              <strong>Hardware Bounds:</strong> Specify acceptable RAM ranges
+              (e.g., 8 GB to 32 GB) and vCPU counts, allowing AWS to fulfill the
+              request using any matching available spare instance type.
+            </li>
+          </ul>
+        </section>
 
-        <h3>Savings Plan Categories</h3>
-        <ol class="steps-list">
-          <li>
-            <strong>Compute Savings Plans:</strong> Offer the highest flexibility, automatically applying discounts of up to <strong>66%</strong> across any EC2 instance family, size, operating system, region, or compute type (including AWS Fargate and AWS Lambda).
-          </li>
-          <li>
-            <strong>EC2 Instance Savings Plans:</strong> Offer higher discount rates (up to <strong>72%</strong>) for specific instance families within a selected AWS region (e.g., <code>m5</code> instances in <code>us-east-1</code>), regardless of OS or instance size.
-          </li>
-          <li>
-            <strong>SageMaker AI Savings Plans:</strong> Provide savings up to <strong>64%</strong> off On-Demand rates. These plans automatically apply to your SageMaker AI instance usage regardless of instance family, size, and component.
-          </li>
-        </ol>
-      </section>
+        <!-- 2. Savings Plans -->
+        <section id="savings-plans" class="guide-part">
+          <h2>2. Savings Plans: Flexible Hourly Spend Commitments</h2>
+          <p>
+            Savings Plans offer discounted compute rates in exchange for
+            committing to a consistent amount of hourly spend (measured in
+            $/hour) for a <strong>1-year or 3-year term</strong>.
+          </p>
 
-      <!-- 3. Reserved Instances -->
-      <section id="ri" class="guide-part">
-        <h2>3. Reserved Instances (RIs): Term-Based Capacity & Billing Guarantees</h2>
-        <p>
-          Reserved Instances (RIs) provide significant billing discounts (up to <strong>75%</strong> compared to On-Demand) when committing to a <strong>1-year (12-month)</strong> or <strong>3-year (36-month)</strong> term.
-        </p>
+          <h3>Savings Plan Categories</h3>
+          <ol class="steps-list">
+            <li>
+              <strong>Compute Savings Plans:</strong> Offer the highest
+              flexibility, automatically applying discounts of up to
+              <strong>66%</strong> across any EC2 instance family, size,
+              operating system, region, or compute type (including AWS Fargate
+              and AWS Lambda).
+            </li>
+            <li>
+              <strong>EC2 Instance Savings Plans:</strong> Offer higher discount
+              rates (up to <strong>72%</strong>) for specific instance families
+              within a selected AWS region (e.g., <code>m5</code> instances in
+              <code>us-east-1</code>), regardless of OS or instance size.
+            </li>
+            <li>
+              <strong>SageMaker AI Savings Plans:</strong> Provide savings up to
+              <strong>64%</strong> off On-Demand rates. These plans
+              automatically apply to your SageMaker AI instance usage regardless
+              of instance family, size, and component.
+            </li>
+          </ol>
+        </section>
 
-        <h3>Regional vs. Zonal Scope</h3>
-        <ul>
-          <li><strong>Regional RIs:</strong> When purchased at the Regional level, the reservation applies billing discounts across all Availability Zones in that Region, but does not reserve physical capacity.</li>
-          <li><strong>Zonal RIs:</strong> When purchased for a specific Availability Zone, a zonal Reserved Instance reserves physical capacity in that exact Availability Zone.</li>
-        </ul>
+        <!-- 3. Reserved Instances -->
+        <section id="ri" class="guide-part">
+          <h2>
+            3. Reserved Instances (RIs): Term-Based Capacity & Billing
+            Guarantees
+          </h2>
+          <p>
+            Reserved Instances (RIs) provide significant billing discounts (up
+            to <strong>75%</strong> compared to On-Demand) when committing to a
+            <strong>1-year (12-month)</strong> or
+            <strong>3-year (36-month)</strong> term.
+          </p>
 
-        <h3>Offering Classes</h3>
-        <ul>
-          <li><strong>Standard RIs:</strong> Deliver the highest discount rates for steady-state workloads where instance family, OS, and region remain fixed throughout the term.</li>
-          <li><strong>Convertible RIs:</strong> Offer slightly lower discounts but allow modifying instance attributes (such as changing instance families from <code>m5</code> to <code>c5</code>, changing OS, or adjusting tenancy) during the term as workload requirements evolve.</li>
-        </ul>
+          <h3>Regional vs. Zonal Scope</h3>
+          <ul>
+            <li>
+              <strong>Regional RIs:</strong> When purchased at the Regional
+              level, the reservation applies billing discounts across all
+              Availability Zones in that Region, but does not reserve physical
+              capacity.
+            </li>
+            <li>
+              <strong>Zonal RIs:</strong> When purchased for a specific
+              Availability Zone, a zonal Reserved Instance reserves physical
+              capacity in that exact Availability Zone.
+            </li>
+          </ul>
+          <div>
+            <img
+              src="../images/regional vs zonall.webp"
+              alt="regional vs zonal"
+            />
+          </div>
 
-        <h3>Payment Structures</h3>
-        <ul>
-          <li><strong>All Upfront:</strong> Pay for the full term commitment upfront for the maximum possible discount.</li>
-          <li><strong>Partial Upfront:</strong> Pay a portion of the cost upfront, with the remainder billed as discounted monthly recurring charges.</li>
-          <li><strong>No Upfront:</strong> Zero initial payment, with the discounted rate billed on an hourly basis throughout the term.</li>
-        </ul>
-      </section>
+          <h3>Offering Classes</h3>
+          <ul>
+            <li>
+              <strong>Standard RIs:</strong> Deliver the highest discount rates
+              for steady-state workloads where instance family, OS, and region
+              remain fixed throughout the term.
+            </li>
+            <li>
+              <strong>Convertible RIs:</strong> Offer slightly lower discounts
+              but allow modifying instance attributes (such as changing instance
+              families from <code>m5</code> to <code>c5</code>, changing OS, or
+              adjusting tenancy) during the term as workload requirements
+              evolve.
+            </li>
+          </ul>
 
-      <!-- 4. Dedicated Hosts -->
-      <section id="dedicated" class="guide-part">
-        <h2>4. Dedicated Hosts: Hardware Compliance & License Optimization</h2>
-        <p>
-          Dedicated Hosts are physical, single-tenant servers fully dedicated to your organization’s exclusive use.
-        </p>
+          <h3>Payment Structures</h3>
+          <ul>
+            <li>
+              <strong>All Upfront:</strong> Pay for the full term commitment
+              upfront for the maximum possible discount.
+            </li>
+            <li>
+              <strong>Partial Upfront:</strong> Pay a portion of the cost
+              upfront, with the remainder billed as discounted monthly recurring
+              charges.
+            </li>
+            <li>
+              <strong>No Upfront:</strong> Zero initial payment, with the
+              discounted rate billed on an hourly basis throughout the term.
+            </li>
+          </ul>
+        </section>
 
-        <h3>Software Licensing Compliance</h3>
-        <p>
-          Many enterprise software products — such as Oracle Database, Microsoft SQL Server, or Windows Server enterprise editions — require licensing tied to specific physical sockets or CPU cores. Dedicated Hosts give you visibility into the underlying physical socket and core layout, enabling <strong>Bring Your Own License (BYOL)</strong> compliance strategies.
-        </p>
+        <!-- 4. Dedicated Hosts -->
+        <section id="dedicated" class="guide-part">
+          <h2>
+            4. Dedicated Hosts: Hardware Compliance & License Optimization
+          </h2>
+          <p>
+            Dedicated Hosts are physical, single-tenant servers fully dedicated
+            to your organization’s exclusive use.
+          </p>
 
-        <h3>Financial Benefits</h3>
-        <p>
-          By leveraging existing eligible core- and socket-based software licenses under a BYOL model, organizations avoid paying recurring license premiums bundled into standard On-Demand instance rates.
-        </p>
-      </section>
+          <h3>Software Licensing Compliance</h3>
+          <p>
+            Many enterprise software products — such as Oracle Database,
+            Microsoft SQL Server, or Windows Server enterprise editions —
+            require licensing tied to specific physical sockets or CPU cores.
+            Dedicated Hosts give you visibility into the underlying physical
+            socket and core layout, enabling
+            <strong>Bring Your Own License (BYOL)</strong> compliance
+            strategies.
+          </p>
+          <div>
+            <img
+              src="../images/license compliance.webp"
+              alt="license compliance"
+            />
+          </div>
 
-      <!-- 5. Capacity Reservations -->
-      <section id="capacity" class="guide-part">
-        <h2>5. Capacity Reservations: AZ-Specific Capacity Assurances</h2>
-        <p>
-          Capacity Reservations guarantee EC2 compute capacity in a specific Availability Zone (AZ) for present or future dates, independent of financial discount commitments.
-        </p>
+          <h3>Financial Benefits</h3>
+          <p>
+            By leveraging existing eligible core- and socket-based software
+            licenses under a BYOL model, organizations avoid paying recurring
+            license premiums bundled into standard On-Demand instance rates.
+          </p>
+        </section>
 
-        <h3>Key Characteristics</h3>
-        <ol class="steps-list">
-          <li>
-            <strong>Guaranteed Capacity:</strong> Ensures capacity is physically reserved for your AWS account in your target AZ (e.g., <code>us-east-1a</code>), eliminating the risk of <code>InsufficientInstanceCapacity</code> errors during critical deployments.
-          </li>
-          <li>
-            <strong>Flexible Commitment Terms:</strong> AWS provides two start modes:
-            <ul>
-              <li><strong>Immediate:</strong> Requires zero term commitment. You can provision or cancel the reservation at any time, and billing stops immediately upon cancellation (billed per-second, 60-second minimum).</li>
-              <li><strong>At a Future Date:</strong> Allows securing capacity 5 to 120 days ahead of planned events. In exchange, AWS requires a minimum commitment duration: typically 14 days for most general instance types.</li>
-            </ul>
-          </li>
-          <li>
-            <strong>Combining with Discounts:</strong> Capacity Reservations can be paired with Regional Reserved Instances or Savings Plans to receive financial billing discounts on top of the physical capacity guarantee.
-          </li>
-        </ol>
-      </section>
+        <!-- 5. Capacity Reservations -->
+        <section id="capacity" class="guide-part">
+          <h2>5. Capacity Reservations: AZ-Specific Capacity Assurances</h2>
+          <p>
+            Capacity Reservations guarantee EC2 compute capacity in a specific
+            Availability Zone (AZ) for present or future dates, independent of
+            financial discount commitments.
+          </p>
 
-      <!-- Summary -->
-      <section class="guide-part">
-        <h2>Wrapping Up</h2>
-        <p>
-          Optimizing EC2 compute costs requires strategically layering these purchasing models across your architecture rather than relying on a single option:
-        </p>
-        <ul>
-          <li>Leverage <strong>Spot Instances</strong> for elastic, fault-tolerant background tasks.</li>
-          <li>Anchor steady-state production workloads with <strong>Savings Plans</strong> or <strong>Reserved Instances</strong>.</li>
-          <li>Reserve <strong>Dedicated Hosts</strong> for socket-bound BYOL enterprise licensing.</li>
-          <li>Deploy <strong>Capacity Reservations</strong> whenever non-negotiable AZ capacity guarantees are essential.</li>
-        </ul>
-      </section>
+          <h3>Key Characteristics</h3>
+          <ol class="steps-list">
+            <li>
+              <strong>Guaranteed Capacity:</strong> Ensures capacity is
+              physically reserved for your AWS account in your target AZ (e.g.,
+              <code>us-east-1a</code>), eliminating the risk of
+              <code>InsufficientInstanceCapacity</code> errors during critical
+              deployments.
+            </li>
+            <li>
+              <strong>Flexible Commitment Terms:</strong> AWS provides two start
+              modes:
+              <ul>
+                <li>
+                  <strong>Immediate:</strong> Requires zero term commitment. You
+                  can provision or cancel the reservation at any time, and
+                  billing stops immediately upon cancellation (billed
+                  per-second, 60-second minimum).
+                </li>
+                <li>
+                  <strong>At a Future Date:</strong> Allows securing capacity 5
+                  to 120 days ahead of planned events. In exchange, AWS requires
+                  a minimum commitment duration: typically 14 days for most
+                  general instance types.
+                </li>
+              </ul>
+            </li>
+            <li>
+              <div>
+                <img
+                  src="../images/capacity reservation.webp"
+                  alt="capacity reservation"
+                />
+              </div>
+              <strong>Combining with Discounts:</strong> Capacity Reservations
+              can be paired with Regional Reserved Instances or Savings Plans to
+              receive financial billing discounts on top of the physical
+              capacity guarantee.
+            </li>
+          </ol>
+        </section>
 
-      <!-- Topic Pagination -->
-      <nav class="topic-pagination">
-        <a href="mastering-aws-ec2.html" class="btn btn-secondary">← Previous: Topic</a>
-        <a href="../index.html#topics" class="btn btn-primary">Browse All Topics →</a>
-      </nav>
+        <!-- Summary -->
+        <section class="guide-part">
+          <h2>Wrapping Up</h2>
+          <div>
+            <img src="../images/wrapup.webp" alt="wrapup" />
+          </div>
+          <p>
+            Optimizing EC2 compute costs requires strategically layering these
+            purchasing models across your architecture rather than relying on a
+            single option:
+          </p>
+          <ul>
+            <li>
+              Leverage <strong>Spot Instances</strong> for elastic,
+              fault-tolerant background tasks.
+            </li>
+            <li>
+              Anchor steady-state production workloads with
+              <strong>Savings Plans</strong> or
+              <strong>Reserved Instances</strong>.
+            </li>
+            <li>
+              Reserve <strong>Dedicated Hosts</strong> for socket-bound BYOL
+              enterprise licensing.
+            </li>
+            <li>
+              Deploy <strong>Capacity Reservations</strong> whenever
+              non-negotiable AZ capacity guarantees are essential.
+            </li>
+          </ul>
+        </section>
 
-    </article>
-  </main>
+        <!-- Topic Pagination -->
+        <nav class="topic-pagination">
+          <a href="mastering-aws-ec2.html" class="btn btn-secondary"
+            >← Previous: Topic</a
+          >
+          <a href="../index.html#topics" class="btn btn-primary"
+            >Browse All Topics →</a
+          >
+        </nav>
+      </article>
+    </main>
 
-  <footer class="footer">
-    <div class="container footer-content">
-      <p>© 2026 Sushil Yadav · AWS Learning Journey</p>
-    </div>
-  </footer>
+    <footer class="footer">
+      <div class="container footer-content">
+        <p>© 2026 Sushil Yadav · AWS Learning Journey</p>
+      </div>
+    </footer>
 
-  <!-- Put before the closing </body> tag -->
-  <script src="../functions.js"></script>
-</body>
+    <!-- Put before the closing </body> tag -->
+    <script src="../functions.js"></script>
+  </body>
 </html>
