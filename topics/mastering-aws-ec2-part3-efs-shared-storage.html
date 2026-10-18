@@ -3,65 +3,81 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Hands-on guide to AWS EC2 shared storage with Amazon EFS: NFS protocols, security groups, multi-instance mounting, and boot persistence."
-    />
-    <title>Mastering AWS EC2 (Part 3): Amazon EFS Shared Storage</title>
-
-    <!-- Main Stylesheet -->
+    <title>
+      Mastering AWS EC2 (Part 3): Amazon Elastic File System (EFS) Shared
+      Storage | AWS Learning Journey
+    </title>
     <link rel="stylesheet" href="../styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
   </head>
+
+  <!-- Image Zoom Modal -->
+  <div id="image-modal" class="image-modal">
+    <span class="modal-close">&times;</span>
+    <img class="modal-content" id="modal-img" alt="Zoomed view" />
+  </div>
+
   <body>
     <!-- Navigation Bar -->
     <header class="navbar">
       <div class="nav-container">
-        <a href="../index.html" class="brand">CloudNotes</a>
+        <a href="../index.html" class="brand">My AWS Learning Journey</a>
         <nav class="nav-links">
-          <a href="../index.html">Home</a>
-          <a href="../index.html#topics" class="active">Topics</a>
+          <a href="../index.html">← All Topics</a>
         </nav>
       </div>
     </header>
 
-    <!-- Main Content Container -->
+    <!-- Main Content -->
     <main class="container">
       <article class="post">
-        <!-- Breadcrumb Navigation -->
-        <nav class="breadcrumb" aria-label="Breadcrumb">
-          <a href="../index.html">Home</a> &gt;
-          <a href="../index.html#topics">AWS EC2</a> &gt;
-          <span>Topic 04</span>
-        </nav>
+        <!-- Article Header -->
+        <header class="post-header">
+          <div class="breadcrumb">
+            <a href="../index.html">Home</a> /
+            <a href="../index.html#topics">Topics</a> / <span>Topic 04</span>
+          </div>
+          <div class="tag-list">
+            <span class="tag">AWS</span>
+            <span class="tag">EC2</span>
+            <span class="tag">EFS</span>
+            <span class="tag">NFS</span>
+            <span class="tag">Linux</span>
+            <span class="tag">Cloud Architecture</span>
+          </div>
+          <h1 class="post-title">Mastering AWS EC2 (Part 3)</h1>
+          <p class="post-subtitle">
+            Amazon Elastic File System (EFS) Shared Storage
+          </p>
 
-        <!-- Post Tags -->
-        <div class="tag-list">
-          <span class="tag">AWS</span>
-          <span class="tag">EC2</span>
-          <span class="tag">EFS</span>
-          <span class="tag">NFS</span>
-          <span class="tag">Linux</span>
-        </div>
+          <div class="author-meta">
+            <div class="author-info">
+              <span class="author-name">Sushil Yadav[cite: 1]</span>
+              <span class="meta-details"
+                >7 min read · Published on AWS Learning Journey</span
+              >
+            </div>
+          </div>
+        </header>
 
-        <!-- Header & Metadata -->
-        <h1 class="post-title">
-          Mastering AWS EC2 (Part 3): Amazon Elastic File System (EFS) Shared
-          Storage
-        </h1>
-        <p class="post-subtitle">
-          A Hands-On Guide to Multi-Instance Linux File Sharing, NFS Protocols,
-          Security Group Configuration, and Boot Persistence[cite: 1]
-        </p>
-
-        <div class="author-meta">
-          <span class="author-name">Sushil Yadav[cite: 1]</span>
-          <span class="meta-details"
-            >7 min read &bull; Published AWS Technical Guide</span
-          >
-        </div>
-
-        <!-- Introduction Section -->
+        <!-- Intro Section -->
         <section class="intro-section">
+          <h3 style="margin-top: 0">
+            A Hands-On Guide to Multi-Instance Linux File Sharing, NFS
+            Protocols, Security Group Configuration, and Boot Persistence[cite:
+            1]
+          </h3>
+          <div>
+            <img
+              src="../images/headder-efs.webp"
+              alt="EFS header illustration"
+            />
+          </div>
           <p class="lead">
             In Part 1 of this series, we looked at mounting local persistent
             block storage using Amazon EBS[cite: 1]. However, because an EBS
@@ -76,32 +92,12 @@
             managed, highly available, and auto-scaling network file storage
             service built specifically for Linux workloads[cite: 1].
           </p>
-
-          <!-- Image Suggestion 1: Architecture -->
-          <figure style="margin: 1.5rem 0">
-            <img
-              src="../assets/images/efs-multi-az-architecture.png"
-              alt="Amazon EFS Multi-AZ Network Storage Architecture"
-              loading="lazy"
-            />
-            <figcaption
-              style="
-                font-size: 0.85rem;
-                color: var(--text-muted);
-                margin-top: 0.5rem;
-                text-align: center;
-              "
-            >
-              Figure 1: Multi-instance shared access across distinct
-              Availability Zones via EFS mount targets.
-            </figcaption>
-          </figure>
         </section>
 
         <hr class="divider" />
 
-        <!-- Part 1: Comparison Table -->
-        <section class="guide-part">
+        <!-- 1. Storage Comparison -->
+        <section id="comparison" class="guide-part">
           <h2>1. Storage Architecture Comparison: EBS vs. S3 vs. EFS</h2>
           <p>
             Selecting the right storage service depends on access patterns, OS
@@ -194,8 +190,8 @@
           </div>
         </section>
 
-        <!-- Part 2: Architecture & Protocols -->
-        <section class="guide-part">
+        <!-- 2. EFS Architecture & Protocols -->
+        <section id="architecture" class="guide-part">
           <h2>2. EFS Architecture, Protocols, and Redundancy Modes</h2>
 
           <h3>Network File System (NFS) Protocol</h3>
@@ -216,10 +212,11 @@
           </p>
 
           <div class="callout callout-warning">
-            <strong>Security Group Warning:</strong> Standard EC2 security
-            groups do not allow Port 2049 by default. Without an explicit rule
-            or shared security group on the EFS mount targets, your mount
-            command will hang and time out[cite: 1].
+            <strong>⚠️ Security Group Notice:</strong> EC2 instances cannot
+            communicate with EFS mount targets over default security
+            groups[cite: 1]. Always verify that TCP Port 2049 is explicitly open
+            in the inbound rules to prevent the mount process from hanging[cite:
+            1].
           </div>
 
           <h3>Redundancy &amp; Storage Classes</h3>
@@ -239,8 +236,8 @@
           </ul>
         </section>
 
-        <!-- Part 3: Hands-On Lab -->
-        <section class="guide-part">
+        <!-- 3. Hands-on Lab -->
+        <section id="hands-on-lab" class="guide-part">
           <h2>3. Step-by-Step EFS Mounting &amp; Persistence Lab</h2>
           <p>
             Follow this hands-on workflow to provision, mount, and share an EFS
@@ -282,26 +279,12 @@
               <strong>Available</strong>[cite: 1].
             </li>
           </ol>
-
-          <!-- Image Suggestion 2: EFS Creation -->
-          <figure style="margin: 1.5rem 0">
+          <div>
             <img
-              src="../assets/images/efs-create-file-system-modal.png"
-              alt="Amazon EFS Creation Modal"
-              loading="lazy"
+              src="../images/create-efs.webp"
+              alt="creating efs file system"
             />
-            <figcaption
-              style="
-                font-size: 0.85rem;
-                color: var(--text-muted);
-                margin-top: 0.5rem;
-                text-align: center;
-              "
-            >
-              Figure 2: Creating a Regional Amazon EFS file system inside the
-              target VPC.
-            </figcaption>
-          </figure>
+          </div>
 
           <h3>Step 3: Configure Matching Security Groups on EFS</h3>
           <ol>
@@ -320,6 +303,12 @@
               <strong>Inbound NFS TCP Port 2049</strong>)[cite: 1].
             </li>
           </ol>
+          <div>
+            <img
+              src="../images/efs-security-groups.webp"
+              alt="configuring efs security groups"
+            />
+          </div>
 
           <div class="callout callout-info">
             <strong>Crucial Rule:</strong> Both the EC2 instance and EFS mount
@@ -327,33 +316,12 @@
             on Port 2049 to allow NFS communication[cite: 1].
           </div>
 
-          <!-- Image Suggestion 3: Network Security Groups -->
-          <figure style="margin: 1.5rem 0">
-            <img
-              src="../assets/images/efs-network-tab-security-groups.png"
-              alt="Managing EFS Mount Target Security Groups"
-              loading="lazy"
-            />
-            <figcaption
-              style="
-                font-size: 0.85rem;
-                color: var(--text-muted);
-                margin-top: 0.5rem;
-                text-align: center;
-              "
-            >
-              Figure 3: Attaching authorized security groups to EFS mount
-              targets across subnets.
-            </figcaption>
-          </figure>
-
           <h3>Step 4: Install NFS Client Utilities on EC2</h3>
           <p>
             Connect to your EC2 instance via SSH and install the required NFS
             client package[cite: 1]:
           </p>
-
-          <pre><code class="language-bash">sudo apt update && sudo apt install nfs-common -y</code></pre>
+          <pre><code>sudo apt update && sudo apt install nfs-common -y</code></pre>
 
           <h3>Step 5: Obtain EFS Mount Command from AWS Console</h3>
           <ol>
@@ -368,34 +336,19 @@
               <code>sudo mount -t nfs4 ...</code> command[cite: 1].
             </li>
           </ol>
-
-          <!-- Image Suggestion 4: Console Attach Modal -->
-          <figure style="margin: 1.5rem 0">
+          <div>
             <img
-              src="../assets/images/efs-attach-modal-nfs-command.png"
-              alt="EFS Attach Modal with NFS Client Mount Command"
-              loading="lazy"
+              src="../images/efs-mount-instructions.webp"
+              alt="efs attach modal instructions"
             />
-            <figcaption
-              style="
-                font-size: 0.85rem;
-                color: var(--text-muted);
-                margin-top: 0.5rem;
-                text-align: center;
-              "
-            >
-              Figure 4: Copying the auto-generated NFS mount command string from
-              the AWS Console.
-            </figcaption>
-          </figure>
+          </div>
 
           <h3>Step 6: Create Mount Point and Attach EFS</h3>
           <p>
             Create a target directory on your EC2 instance and execute the mount
             command[cite: 1]:
           </p>
-
-          <pre><code class="language-bash"># Create mount directory
+          <pre><code># Create mount directory
 mkdir -p /home/ubuntu/efs
 
 # Mount EFS via NFS v4.1
@@ -409,13 +362,19 @@ sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,ret
             Assign directory permissions to your non-root user and add sample
             files or code[cite: 1]:
           </p>
-
-          <pre><code class="language-bash"># Grant user ownership
+          <pre><code># Grant user ownership
 sudo chown -R ubuntu:ubuntu /home/ubuntu/efs
 
 # Navigate and add data
 cd /home/ubuntu/efs
 git clone &lt;REPOSITORY-URL&gt;</code></pre>
+
+          <div>
+            <img
+              src="../images/efs-multi-instance-test.webp"
+              alt="testing efs sync across instances"
+            />
+          </div>
 
           <p>
             When you mount this exact same EFS file system onto a second or
@@ -423,37 +382,16 @@ git clone &lt;REPOSITORY-URL&gt;</code></pre>
             across all servers in real time[cite: 1].
           </p>
 
-          <!-- Image Suggestion 5: Terminal Output -->
-          <figure style="margin: 1.5rem 0">
-            <img
-              src="../assets/images/terminal-df-h-efs-mount.png"
-              alt="Terminal output verifying EFS mount via df -h command"
-              loading="lazy"
-            />
-            <figcaption
-              style="
-                font-size: 0.85rem;
-                color: var(--text-muted);
-                margin-top: 0.5rem;
-                text-align: center;
-              "
-            >
-              Figure 5: Checking active network storage mounting with df -h.
-            </figcaption>
-          </figure>
-
           <h3>Step 8: Configure Permanent Boot Mount (/etc/fstab)</h3>
           <p>
             Manual NFS mounts are temporary and unmount whenever an instance
             reboots[cite: 1]. To enforce automatic mounting on system boot, edit
             <code>/etc/fstab</code>[cite: 1]:
           </p>
-
-          <pre><code class="language-bash">sudo nano /etc/fstab</code></pre>
+          <pre><code>sudo nano /etc/fstab</code></pre>
 
           <p>Add the following entry at the bottom of the file[cite: 1]:</p>
-
-          <pre><code class="language-text">&lt;EFS-DNS-NAME&gt;:/ /home/ubuntu/efs nfs4 defaults,_netdev 0 0</code></pre>
+          <pre><code>&lt;EFS-DNS-NAME&gt;:/ /home/ubuntu/efs nfs4 defaults,_netdev 0 0</code></pre>
 
           <div class="callout callout-info">
             <strong>Pro-Tip:</strong> The <code>_netdev</code> parameter is
@@ -464,29 +402,45 @@ git clone &lt;REPOSITORY-URL&gt;</code></pre>
           </div>
         </section>
 
+        <!-- Summary -->
+        <section class="guide-part">
+          <h2>Wrapping Up</h2>
+          <div>
+            <img
+              src="../images/wrapup-efs.webp"
+              alt="EFS summary and wrap up"
+            />
+          </div>
+          <p>
+            Amazon EFS provides a fully elastic, multi-AZ network file system
+            ideal for container storage, shared web content, and distributed
+            analytics[cite: 1]. By configuring matching security groups on
+            <strong>NFS Port 2049</strong> and setting
+            <code>/etc/fstab</code> entries with <code>_netdev</code>, you
+            ensure high performance, seamless data sharing, and boot persistence
+            across your EC2 fleet[cite: 1].
+          </p>
+        </section>
+
         <!-- Topic Pagination -->
-        <nav class="topic-pagination" aria-label="Topic navigation">
+        <nav class="topic-pagination">
           <a href="aws-ec2-cost-optimization.html" class="btn btn-secondary"
-            >&larr; Part 2: Cost Optimization</a
+            >← Previous: Topic</a
           >
           <a href="../index.html#topics" class="btn btn-primary"
-            >All Topics &rarr;</a
+            >All Topics →</a
           >
         </nav>
       </article>
     </main>
 
-    <!-- Footer -->
     <footer class="footer">
-      <div class="container">
-        <p>
-          &copy; 2026 Sushil Yadav &bull; Cloud Infrastructure &amp; Technical
-          Writing
-        </p>
+      <div class="container footer-content">
+        <p>© 2026 Sushil Yadav · AWS Learning Journey</p>
       </div>
     </footer>
 
-    <!-- Functions Script (Copy button + Image Lightbox) -->
+    <!-- Put before the closing </body> tag -->
     <script src="../functions.js"></script>
   </body>
 </html>
