@@ -1,8 +1,0 @@
-How to Add Future Topics
-Whenever you write your next article (e.g., Part 2: Managing Elastic IPs, Resizing Instances & EBS Block Storage):
-
-Duplicate topics/mastering-aws-cloud-computing.html and name it topics/elastic-ips-and-ebs.html.
-
-Update the article content in the new file.
-
-In index.html, remove the card-upcoming class on Topic 02 and change the link from Coming Soon to point directly to topics/elastic-ips-and-ebs.html.
