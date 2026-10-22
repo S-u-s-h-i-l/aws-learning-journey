@@ -74,7 +74,7 @@
           </h3>
           <div>
             <img
-              src="../images/headder-efs.webp"
+              src="../images/efs-multi-az-architecture.png"
               alt="EFS header illustration"
             />
           </div>
@@ -208,7 +208,7 @@
             <strong>⚠️ Security Group Notice:</strong> EC2 instances cannot
             communicate with EFS mount targets over default security groups.
             Always verify that TCP Port 2049 is explicitly open in the inbound
-            rules to prevent the mount process from hanging[cite: 1].
+            rules to prevent the mount process from hanging.
           </div>
 
           <h3>Redundancy &amp; Storage Classes</h3>
@@ -270,7 +270,7 @@
           </ol>
           <div>
             <img
-              src="../images/create-efs.webp"
+              src="../images/efs-create-file-system-modal.png"
               alt="creating efs file system"
             />
           </div>
@@ -292,7 +292,7 @@
           </ol>
           <div>
             <img
-              src="../images/efs-security-groups.webp"
+              src="../images/efs-network-tab-security-groups.png"
               alt="configuring efs security groups"
             />
           </div>
@@ -325,7 +325,7 @@
           </ol>
           <div>
             <img
-              src="../images/efs-mount-instructions.webp"
+              src="../images/efs-attach-modal-nfs-command.png"
               alt="efs attach modal instructions"
             />
           </div>
@@ -356,12 +356,12 @@ sudo chown -R ubuntu:ubuntu /home/ubuntu/efs
 cd /home/ubuntu/efs
 git clone REPOSITORY-URL</code></pre>
 
-          <div>
+          <!-- <div>
             <img
               src="../images/efs-multi-instance-test.webp"
               alt="testing efs sync across instances"
             />
-          </div>
+          </div> -->
 
           <p>
             When you mount this exact same EFS file system onto a second or
@@ -384,19 +384,19 @@ git clone REPOSITORY-URL</code></pre>
             <strong>Pro-Tip:</strong> The <code>_netdev</code> parameter is
             mandatory for all network-attached storage mounts. It instructs the
             Linux boot loader to wait until network interfaces are fully
-            initialized before attempting to mount EFS on startup[cite: 1].
+            initialized before attempting to mount EFS on startup.
           </div>
         </section>
 
         <!-- Summary -->
         <section class="guide-part">
           <h2>Wrapping Up</h2>
-          <div>
+          <!-- <div>
             <img
               src="../images/wrapup-efs.webp"
               alt="EFS summary and wrap up"
             />
-          </div>
+          </div> -->
           <p>
             Amazon EFS provides a fully elastic, multi-AZ network file system
             ideal for container storage, shared web content, and distributed
